@@ -1,0 +1,56 @@
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar-header {
+    background: #6d7fcc;
+}
+
+.sidebar-header h3 {
+    color: #fff;
+    padding: 1em;
+}
+
+.side-menu {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+}
+
+.side-menu::-webkit-scrollbar {
+    width: 10px;
+}
+
+.side-menu::-webkit-scrollbar-thumb {
+    background: #5466b3;
+    border-radius: 3px;
+}
+
+.side-menu::-webkit-scrollbar-thumb:hover {
+    background: #3a4c99;
+}
+
+
+/* Sidebar default di layar kecil */
+#mySidebar {
+    display: none;
+    /* Sembunyikan sidebar di layar kecil */
+    width: 0;
+    transition: 0.3s ease;
+}
+
+/* Tampilkan sidebar otomatis di layar besar */
+@media (min-width: 768px) {
+    #mySidebar {
+        display: block;
+        width: 25%;
+    }
+
+    #main {
+        margin-left: 25%;
+    }
+}
