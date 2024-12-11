@@ -22,7 +22,7 @@ jobs:
         run: npm install --frozen-lockfile
 
       - name: Membuat app
-        run: npm run build
+        run: vite build
 
       - name: Informasi dari environment
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
