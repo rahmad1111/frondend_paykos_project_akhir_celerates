@@ -1,0 +1,34 @@
+name: Deploy to Vercel 
+
+env:
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }} # Pulls Vercel token from GitHub secrets
+
+on:
+  push:
+    branches:
+      - main # Triggers deployment when code is pushed to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Keluaran repository
+        uses: actions/checkout@v2
+
+      - name: Install vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Melakukan pengintallan depedensi
+        run: npm install --frozen-lockfile
+
+      - name: Membuat app
+        run: npm run build
+
+      - name: Informasi dari environment
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Membuat token
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+        
+      - name: Membuat deploy ke atas
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
