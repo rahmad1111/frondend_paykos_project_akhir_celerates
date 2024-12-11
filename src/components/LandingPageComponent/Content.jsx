@@ -1,7 +1,7 @@
 import berita from '../../assets/berita.svg'
 import about from '../../assets/about.svg'
 import data from './utils/data'
-import Whatsapp from '../../assets/Whatsapp.svg'
+import Whatsapp from '../../assets/whatsapp.svg'
 import email from '../../assets/email.svg'
 
 function Content() {
