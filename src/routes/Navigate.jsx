@@ -15,7 +15,6 @@ import Layouts from "../pages/Layouts";
 // import Tampilandepan from "../components/Daskboard/admin/Tampilandepan";
 // import Tampildata from "../components/Daskboard/admin/Tampildata";
 
-
 function Navigate() {
     return (
         <Routes>

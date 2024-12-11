@@ -1,84 +1,70 @@
 import { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { useDispatch, useSelector } from 'react-redux'
+// import { Form, Button, Alert } from "react-bootstrap";
 import '../../styles/login.css'
+import auth from '../../store/actions/userdata.actions'
+// const tes = "jsdflslfs"
 function Login() {
-  const [inputUsername, setInputUsername] = useState("");
-  const [inputPassword, setInputPassword] = useState("");
+  const [credentials, setCredentials] = useState({ nomer_pengguna: '', password: '' });
+  const dispatch = useDispatch();
+  const loginState = useSelector(state => state.usersdata); // Pastikan reducer auth terhubung
 
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    await delay(500);
-    console.log(`Username :${inputUsername}, Password :${inputPassword}`);
-    if (inputUsername !== "admin" || inputPassword !== "admin") {
-      setShow(true);
-    }
-    setLoading(false);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
   };
 
-  function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(auth(credentials));
+    setCredentials({ nomer_pengguna: '', password: '' });
+  };
 
   return (
-    <div className="sign-in__wrapper">
-      {/* Overlay */}
-      <div className="sign-in__backdrop"></div>
-      {/* Form */}
-      <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
-        {/* Header */}
-        <div className="h4 mb-2 text-center">Login</div>
-        {/* ALert */}
-        {show ? (
-          <Alert
-            className="mb-2"
-            variant="danger"
-            onClose={() => setShow(false)}
-            dismissible
-          >
-            Incorrect username or password.
-          </Alert>
-        ) : (
-          <div />
-        )}
-        <Form.Group className="mb-2" controlId="username">
-          <Form.Label>ID Pengguna</Form.Label>
-          <Form.Control
-            type="text"
-            value={inputUsername}
-            placeholder="ID Pengguna"
-            onChange={(e) => setInputUsername(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={inputPassword}
-            placeholder="Password"
-            onChange={(e) => setInputPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mb-2" controlId="checkbox">
-          <Form.Check type="checkbox" label="Remember me" />
-        </Form.Group>
-        {!loading ? (
-          <Button className="w-100" variant="primary" type="submit">
-            Log In
-          </Button>
-        ) : (
-          <Button className="w-100" variant="primary" type="submit" disabled>
-            Logging In...
-          </Button>
-        )}
-      </Form>
+    <div className="body">
+      <div className="sign-in__wrapper">
+        <div className="login-page">
+          <div className="card-container">
+            <div className="card">
+              <div className="card-header">
+                <h2>Welcome Back</h2>
+                <p>Login to continue</p>
+                {loginState.loading && <p>Loading...</p>}
+                {loginState.error && <p style={{ color: 'red' }}>{loginState.error}</p>}
+              </div>
+              <div className="card-body">
+                <form onSubmit={handleSubmit}>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      id="nomer_pengguna"
+                      name="nomer_pengguna"
+                      value={credentials.nomer_pengguna}
+                      onChange={handleChange}
+                      required
+                    />
+                    <label htmlFor="nomer_pengguna">Nomor Pengguna</label>
+                  </div>
+                  <div className="input-group">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={credentials.password}
+                      onChange={handleChange}
+                      required
+                    />
+                    <label htmlFor="password">Password</label>
+                  </div>
+                  <button type="submit" className="login-btn">Login</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default Login;

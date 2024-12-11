@@ -86,7 +86,7 @@ function Daskboard() {
     }, []);
 
     return (
-        <div>
+        <div className="div">
             {/* Sidebar */}
             <div
                 id="mySidebar"
@@ -131,7 +131,7 @@ function Daskboard() {
                 <div style={{ padding: "20px" }}>
                     <h1>Responsive Sidebar</h1>
                     <p>Konten utama ada di sini.</p>
-                    <Outlet/>
+                    <Outlet />
                 </div>
             </div>
         </div>

@@ -1,3 +1,11 @@
+.div{
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
 .btn {
     background-color: DodgerBlue;
     border: none;

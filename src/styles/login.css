@@ -1,6 +1,6 @@
-* {
+/* * {
     margin: 0;
-}
+} */
 
 .sign-in__wrapper {
     display: flex;
@@ -24,7 +24,7 @@
 
 .sign-in__wrapper form {
     width: 24rem;
-    max-width: 90%;
+    max-width: calc(100%);
     z-index: 1;
     animation: showSignInForm 1s;
 }
@@ -33,3 +33,229 @@
     width: 4rem;
 }
 
+/* ######################----BATAS----######################## */
+
+
+/* General Reset */
+
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+/* body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+} */
+
+/* Login Container */
+/* .login-container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    text-align: center;
+}
+
+.login-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+} */
+
+/* Input Group */
+/* .input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+} */
+
+/* Login Button */
+/* .login-btn {
+    width: 100%;
+    padding: 10px;
+    background: #2575fc;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #1e63d4;
+} */
+
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #fff;
+}
+
+/* Page Container */
+.login-page-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Card Styling */
+.card {
+    background: #fff;
+    color: #333;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.card-header {
+    color: #000000;
+    text-align: center;
+    padding: 20px 10px;
+}
+
+.card-header h2 {
+    font-size: 24px;
+}
+
+.card-header p {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.card-body {
+    padding: 20px 15px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-bottom-right-radius: 10px;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: #2575fc;
+    background: #fff;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #aaa;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+    top: -5px;
+    left: 12px;
+    font-size: 12px;
+    color: #2575fc;
+    background: #fff;
+    padding: 0 5px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2575fc;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+
+
+.card-footer {
+    text-align: center;
+    padding: 15px 10px;
+    background: #f9f9f9;
+}
+
+.card-footer p {
+    font-size: 12px;
+    color: #666;
+}
+
+.card-footer a {
+    color: #2575fc;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-footer a:hover {
+    text-decoration: underline;
+}

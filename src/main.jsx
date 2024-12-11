@@ -4,14 +4,14 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 import Navigate from './routes/Navigate'
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Provider } from 'react-redux';
-// import store from './store(tes)/store';
+import { Provider } from 'react-redux';
+import store from './store/index';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      {/* <Provider store={store}> */}
-        <Navigate />
-      {/* </Provider> */}
-    </BrowserRouter>
+      <Provider store={store()}>
+        <BrowserRouter>
+          <Navigate />
+        </BrowserRouter>
+      </Provider>
   </StrictMode>,
 )
