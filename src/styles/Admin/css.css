@@ -1,0 +1,71 @@
+/* Sidebar Container */
+.sidebar-header {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 2px solid #343a40;
+  }
+  
+  .side-menu {
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 20%;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Navigation Items */
+  .list-container {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .list-container p {
+    color: #6c757d;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  /* Individual Nav Items */
+  .nav-item {
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    color: #495057;
+    text-decoration: none;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+  }
+  
+  .nav-link:hover {
+    background-color: #007bff;
+    color: #ffffff;
+    transform: translateX(5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Icons */
+  .nav-link span {
+    font-family: FontAwesome, sans-serif;
+    margin-right: 10px;
+    font-size: 1.2rem;
+  }
+

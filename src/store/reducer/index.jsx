@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import usersdata from '../reducer/usersdata.reducer'
+import datas from './usersdata.reducer'
 
 const appReducer = combineReducers({
-    usersdata,
+    datas,
 })
 
 const rootReducer = (state, action) => appReducer(state, action)

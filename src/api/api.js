@@ -1,13 +1,19 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3131/apikos/v1/auth/signin';  // URL API login
-
-// Fungsi untuk melakukan login
-export const loginUser = async (credentials) => {
+const customFetch = async (url, options = {}) => {
     try {
-        const response = await axios.post(API_URL, credentials);
-        return response.data;  // Return data dari response (misalnya token, nama pengguna)
+        const response = await fetch(url, {
+            ...options,
+            credentials: 'include',
+        });
+
+        if (response.status === 401) {
+            window.location.href = '/login';
+        }
+
+        return response;
     } catch (error) {
-        throw error.response ? error.response.data : error.message;  // Handle error
+        console.error('Fetch error:', error);
+        throw error;
     }
 };
+
+export default customFetch;

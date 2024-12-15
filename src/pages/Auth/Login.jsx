@@ -7,7 +7,7 @@ import auth from '../../store/actions/userdata.actions'
 function Login() {
   const [credentials, setCredentials] = useState({ nomer_pengguna: '', password: '' });
   const dispatch = useDispatch();
-  const loginState = useSelector(state => state.usersdata); // Pastikan reducer auth terhubung
+  const loginState = useSelector(state => state.datas); // Pastikan reducer terhubung
 
   const handleChange = (e) => {
     const { name, value } = e.target;

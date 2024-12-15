@@ -1,61 +1,73 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from 'react-router-dom';
-import { NavItem, NavLink, Nav } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-    // faHome,
-    faBriefcase,
-    faPaperPlane,
-    faQuestion,
-    faImage,
-    // faCopy,
-} from "@fortawesome/free-solid-svg-icons";
-const role = 'user'
-
+import '../../styles/Daskboard/css.css'
+const role = "admin"
 function Daskboard() {
+    const id = localStorage.getItem('userId')
     const renderContent = () => {
         if (role === "admin") {
             return (
                 <div>
-                    <Link to={'/home'} >Landing</Link>
+                    <div className="sidebar-header">
+                        <h3>PayKos</h3>
+                    </div>
+                    <div className="side-menu">
+                        <div className="list-container pb-3">
+                            <p>Menu</p>
+                            <div className="nav-item">
+                                <Link to="/daskboard" className="nav-link">
+                                    <span className="mr-2">&#xf0b1;</span>Daskboard
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to="/daskboard/penghuni" className="nav-link">
+                                    <span className="mr-2">&#xf03e;</span>Data Penghuni
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to={`/daskboard/datakos/${id}`} className="nav-link">
+                                    <span className="mr-2">&#xf059;</span>Data Kos
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to={`/daskboard/profile/${id}`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Profile Admin
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         } else if (role === "user") {
             return (
                 <div>
                     <div className="sidebar-header">
-                        <h3>Bootstrap Sidebar</h3>
+                        <h3>PayKos</h3>
                     </div>
                     <div className="side-menu">
-                        <Nav vertical className="list-unstyled pb-3">
-                            <p>Dummy Heading</p>
-                            {/* <SubMenu title="Home" icon={faHome} items={submenus[0]} /> */}
-                            <NavItem>
-                                <NavLink tag={Link} to={"/about"}>
-                                    <FontAwesomeIcon icon={faBriefcase} className="mr-2" />
-                                    About
-                                </NavLink>
-                            </NavItem>
-                            {/* <SubMenu title="Pages" icon={faCopy} items={submenus[1]} /> */}
-                            <NavItem>
-                                <NavLink tag={Link} to={"/pages"}>
-                                    <FontAwesomeIcon icon={faImage} className="mr-2" />
-                                    Portfolio
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to={"/faq"}>
-                                    <FontAwesomeIcon icon={faQuestion} className="mr-2" />
-                                    FAQ
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink tag={Link} to={"/contact"}>
-                                    <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
-                                    Contact
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
+                        <div className="list-container pb-3">
+                            <p>Menu</p>
+                            <div className="nav-item">
+                                <Link to="/daskboard" className="nav-link">
+                                    <span className="mr-2">&#xf0b1;</span>Daskboard
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to="/daskboard/penghuni" className="nav-link">
+                                    <span className="mr-2">&#xf03e;</span>Data Penghuni
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to={`/daskboard/datakos/${id}`} className="nav-link">
+                                    <span className="mr-2">&#xf059;</span>Data Kos
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to={`/daskboard/profile/${id}`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Profile Admin
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             );
@@ -88,32 +100,18 @@ function Daskboard() {
     return (
         <div className="div">
             {/* Sidebar */}
-            <div
-                id="mySidebar"
+            <div id="mySidebar"
                 style={{
                     display: isSidebarOpen ? "block" : "none",
-                    width: isSidebarOpen ? "25%" : "0",
+                    width: isSidebarOpen ? (window.innerWidth <= 768 ? "80%" : "25%") : "0",
                     position: "fixed",
                     backgroundColor: "#FFDE21",
                     height: "100%",
                     transition: "0.3s ease",
-                    overflowX: "hidden", // Hindari scroll horizontal
+                    overflowX: "hidden",
                     padding: isSidebarOpen ? "20px" : "0", // Tambahkan padding saat terbuka
-                }}
-            >
-                <h2>Sidebar</h2>
-                {renderContent()}
-            </div>
-
-            {/* Konten Utama */}
-            <div
-                id="main"
-                style={{
-                    marginLeft: isSidebarOpen ? "25%" : "0",
-                    transition: "margin-left 0.3s ease",
-                }}
-            >
-                <div className="Navbar" style={{ padding: "10px", backgroundColor: "#333", color: "#FFF" }}>
+                }}>
+                <div className="flex">
                     <button
                         id="openNav"
                         className="btn"
@@ -121,16 +119,46 @@ function Daskboard() {
                         style={{
                             backgroundColor: "#FFDE21",
                             border: "none",
-                            padding: "10px",
+                            padding: window.innerWidth <= 768 ? "8px" : "10px",
                             cursor: "pointer",
-                        }}
-                    >
-                        <i className="fa fa-bars" style={{ fontSize: "18px" }}></i>
+                            fontSize: window.innerWidth <= 768 ? "16px" : "18px", // Sesuaikan ukuran font
+                        }}>
+                        <i className="fa fa-bars"></i>
                     </button>
                 </div>
-                <div style={{ padding: "20px" }}>
-                    <h1>Responsive Sidebar</h1>
-                    <p>Konten utama ada di sini.</p>
+                {renderContent()}
+            </div>
+
+            {/* Konten Utama */}
+            <div
+                id="main"
+                style={{
+                    marginLeft: isSidebarOpen ? (window.innerWidth <= 768 ? "80%" : "25%") : "0",
+                    transition: "margin-left 0.3s ease",
+                    marginRight: isSidebarOpen ? (window.innerWidth <= 768 ? "80%" : "0%") : "13.3%",
+                }}
+            >
+                <div className="Navbar">
+                    <button
+                        id="openNav"
+                        className="btn"
+                        onClick={toggleSidebar}
+                        style={{
+                            backgroundColor: "#FFDE21",
+                            border: "none",
+                            padding: window.innerWidth <= 768 ? "8px" : "10px",
+                            cursor: "pointer",
+                            fontSize: window.innerWidth <= 768 ? "16px" : "18px", // Sesuaikan ukuran font
+                        }}>
+                        <i className="fa fa-bars"></i>
+                    </button>
+                    <div className="nav-item">
+                        <Link to="/contact" className="nav-link">
+                            Keluar
+                        </Link>
+                    </div>
+                </div>
+                <div className="contentdask">
                     <Outlet />
                 </div>
             </div>

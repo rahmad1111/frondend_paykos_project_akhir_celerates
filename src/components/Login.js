@@ -43,3 +43,9 @@ const Login = () => {
 };
 
 export default Login;
+
+
+// setTimeout(() => {
+            //     setSuccessMessage(''); // Reset pesan setelah beberapa detik
+            //     navigate('/dashboard/penghuni'); // Navigasi ke halaman lain
+            // }, 2000); // Navigasi setelah 2 detik

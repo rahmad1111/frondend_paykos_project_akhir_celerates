@@ -1,0 +1,25 @@
+.flex-tampildata {
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 40px;
+  background-color: transparent;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  width: auto;
+}
+
+
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* Allow items to wrap into a new row */
+}
+
+.flex-item {
+  width: 30%;
+  /* Adjust width to fit multiple items in one row */
+  margin: 10px;
+}
