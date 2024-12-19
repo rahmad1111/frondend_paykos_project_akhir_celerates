@@ -84,7 +84,7 @@ export function getUserData() {
 
 export function geteditUserData(params) {
     return async dispatch => {
-        dispatch({type: actionTypes.TENANTS_EDIT_REQUEST});
+        dispatch({ type: actionTypes.TENANTS_EDIT_REQUEST });
         try {
             const token = localStorage.getItem('token');
             // console.log('IDnya : ', id_pemilik);
@@ -102,7 +102,7 @@ export function geteditUserData(params) {
             if (response.status === 403) {
                 window.location.href = '/login';
             }
-            
+
             const res = await response.json();
             if (!response.ok) {
                 const error = await response.json();
@@ -120,7 +120,7 @@ export function geteditUserData(params) {
 
 export function editUserData(params) {
     return async dispatch => {
-        dispatch({ type: actionTypes.TENANTS_EDIT_RESPONSE_FAILURE})
+        dispatch({ type: actionTypes.TENANTS_EDIT_RESPONSE_FAILURE })
         try {
             const token = localStorage.getItem('token');
             const response = await customFetch(baseUrl + `users/${params.id}`, {
@@ -136,60 +136,9 @@ export function editUserData(params) {
                 return;
             }
         } catch (error) {
-            dispatch.error({type: actionTypes.TENANTS_EDIT_RESPONSE_SUCCESS, payload: error.message })
+            dispatch.error({ type: actionTypes.TENANTS_EDIT_RESPONSE_SUCCESS, payload: error.message })
         }
     }
-}
-
-export function getDataKos(params) {
-    return async dispatch => {
-        dispatch({ type: actionTypes.GET_COSMOS_DATA_REQUEST });
-        try {
-            const token = localStorage.getItem('token');
-            const response = await customFetch(baseUrl + `datakos/${params}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            });
-            if (response.status === 403) {
-                window.location.href = '/login';
-                return;
-            }
-            const res = await response.json();
-            console.log("Response Data:", res.data);
-            dispatch({ type: actionTypes.GET_COSMOS_DATA_SUCCESS, payload: res.data });
-        } catch (error) {
-            dispatch({ type: actionTypes.GET_COSMOS_DATA_FAILURE, payload: error.message });
-        }
-    };
-}
-
-export function updateDataKos(params) {
-    return async dispatch => {
-        dispatch({ type: actionTypes.UPDATE_COSMOS_DATA_REQUEST });
-        try {
-            const token = localStorage.getItem('token');
-            const response = await customFetch(baseUrl + `datakos/${params.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(params)
-            });
-            if (response.status === 403) {
-                window.location.href = '/login';
-                return; // Stop further execution if status is 403
-            }
-            const res = await response.json();
-            console.log("Response Data:", res.data); // Debugging
-            dispatch({ type: actionTypes.UPDATE_COSMOS_DATA_SUCCESS, payload: res.data });
-        } catch (error) {
-            dispatch({ type: actionTypes.UPDATE_COSMOS_DATA_FAILURE, payload: error.message });
-        }
-    };
 }
 
 export function addPenghuni(params) {
@@ -248,8 +197,8 @@ export function getComplain() {
         dispatch({ type: actionTypes.GET_COMPLAIN_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}users`, {
-                method: 'POST',
+            const response = await customFetch(`${baseUrl}keluhankos`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
@@ -268,12 +217,213 @@ export function getComplain() {
     };
 }
 
+export function deleteComplain(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.DELETE_COMPLAIN_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}keluhankos/${params}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.DELETE_COMPLAIN_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.DELETE_COMPLAIN_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function getInformasi() {
+    return async dispatch => {
+        dispatch({ type: actionTypes.FETCH_INFORMATION_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}informasi`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.FETCH_INFORMATION_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.FETCH_INFORMATION_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function addInfomasi(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.CREATE_INFORMATION_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}informasi`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(params),
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.CREATE_INFORMATION_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.CREATE_INFORMATION_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function addKeluhan(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.CREATE_COMPLAIN_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}keluhankos`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(params),
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.CREATE_COMPLAIN_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.CREATE_COMPLAIN_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function addPembayaranAdmin(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.FETCH_PAYMENT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}pembayaran`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(params),
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.FETCH_PAYMENT_SUCCESS, payload: res.message });
+        } catch (error) {
+            dispatch({ type: actionTypes.FETCH_PAYMENT_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function getPembayaranByid(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}pembayaran/${params}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function konfirmasiPembayaran(params) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}pembayaran/penghuni/${params.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(params),
+            });
+            console.log("data : ", params)
+            console.log("id : ", params.id)
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_FAILURE, payload: error.message });
+        }
+    };
+}
 
 export function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('roles');
-    localStorage.removeItem('userId');
-    localStorage.removeItem('nama');
-    window.location.replace('/');
-    return { type: actionTypes.LOGIN_LOGOUT_SUCCESS }
+    return async dispatch => {
+        dispatch({ type: actionTypes.AUTH_LOGOUT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await customFetch(`${baseUrl}auth/logout`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            console.log("Response Data:", res.data);
+            localStorage.removeItem('token');
+            localStorage.removeItem('roles');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('nama');
+            window.location.replace('/');
+            dispatch({ type: actionTypes.AUTH_LOGOUT_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.AUTH_LOGOUT_FAILURE, payload: error.message });
+        }
+    }
 }

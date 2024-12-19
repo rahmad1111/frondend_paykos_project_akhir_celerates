@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from 'react-router-dom';
 import '../../styles/Daskboard/css.css'
-const role = "admin"
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/actions/userdata.actions";
+const role = localStorage.getItem('roles')
 function Daskboard() {
+    const dispatch = useDispatch();
     const id = localStorage.getItem('userId')
     const renderContent = () => {
         if (role === "admin") {
@@ -20,17 +23,22 @@ function Daskboard() {
                                 </Link>
                             </div>
                             <div className="nav-item">
+                                <Link to={`/daskboard/tambahinformasi`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Tambah Infomasi
+                                </Link>
+                            </div>
+                            <div className="nav-item">
+                                <Link to={`/daskboard/konfirmasitagihanpenghuni`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Konfirmasi Tagihan
+                                </Link>
+                            </div>
+                            <div className="nav-item">
                                 <Link to="/daskboard/penghuni" className="nav-link">
                                     <span className="mr-2">&#xf03e;</span>Data Penghuni
                                 </Link>
                             </div>
                             <div className="nav-item">
-                                <Link to={`/daskboard/datakos/${id}`} className="nav-link">
-                                    <span className="mr-2">&#xf059;</span>Data Kos
-                                </Link>
-                            </div>
-                            <div className="nav-item">
-                                <Link to={`/daskboard/profile/${id}`} className="nav-link">
+                                <Link to={`/daskboard/profile/admin/${id}`} className="nav-link">
                                     <span className="mr-2">&#xf1d8;</span>Profile Admin
                                 </Link>
                             </div>
@@ -38,7 +46,7 @@ function Daskboard() {
                     </div>
                 </div>
             );
-        } else if (role === "user") {
+        } else if (role === "penghuni") {
             return (
                 <div>
                     <div className="sidebar-header">
@@ -53,18 +61,18 @@ function Daskboard() {
                                 </Link>
                             </div>
                             <div className="nav-item">
-                                <Link to="/daskboard/penghuni" className="nav-link">
-                                    <span className="mr-2">&#xf03e;</span>Data Penghuni
+                                <Link to={`/daskboard/tambahkeluhan`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Keluhan Kos
                                 </Link>
                             </div>
                             <div className="nav-item">
-                                <Link to={`/daskboard/datakos/${id}`} className="nav-link">
-                                    <span className="mr-2">&#xf059;</span>Data Kos
+                                <Link to={`/daskboard/konfirmasitagihan`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Data Tagihan
                                 </Link>
                             </div>
                             <div className="nav-item">
-                                <Link to={`/daskboard/profile/${id}`} className="nav-link">
-                                    <span className="mr-2">&#xf1d8;</span>Profile Admin
+                                <Link to={`/daskboard/profile/penghuni/${id}`} className="nav-link">
+                                    <span className="mr-2">&#xf1d8;</span>Profile Pengguna
                                 </Link>
                             </div>
                         </div>
@@ -78,24 +86,25 @@ function Daskboard() {
     { renderContent() }
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    // Fungsi untuk toggle sidebar
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-    // Fungsi untuk menangani perubahan ukuran layar
     const handleResize = () => {
         if (window.innerWidth >= 768) {
-            setIsSidebarOpen(true); // Sidebar tampil otomatis di layar besar
+            setIsSidebarOpen(true);
         } else {
-            setIsSidebarOpen(false); // Sidebar sembunyi di layar kecil
+            setIsSidebarOpen(false);
         }
     };
 
-    // Pasang event listener saat komponen di-mount
     useEffect(() => {
         window.addEventListener("resize", handleResize);
-        handleResize(); // Inisialisasi saat pertama kali render
+        handleResize();
         return () => window.removeEventListener("resize", handleResize); // Bersihkan event listener
     }, []);
+
+    const handleLogout = () => {
+        dispatch(logout())
+    }
 
     return (
         <div className="div">
@@ -152,8 +161,16 @@ function Daskboard() {
                         }}>
                         <i className="fa fa-bars"></i>
                     </button>
+                    
                     <div className="nav-item">
-                        <Link to="/contact" className="nav-link">
+                        <Link onClick={() => {
+                            handleLogout()
+                            localStorage.removeItem('token');
+                            localStorage.removeItem('roles');
+                            localStorage.removeItem('userId');
+                            localStorage.removeItem('nama');
+                            window.location.replace('/login')
+                        }} className="nav-link">
                             Keluar
                         </Link>
                     </div>

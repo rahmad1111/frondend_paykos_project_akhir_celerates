@@ -9,7 +9,7 @@ function Content() {
         <>
             <br />
             <br />
-            <div className="content">
+            <div className="content" id='content'>
                 <div className='home'>
                     <h1>Bergabunglah Bersama Kami</h1>
                     <p>Transformasikan bisnis kost Anda menjadi lebih baik.</p>
@@ -24,7 +24,7 @@ function Content() {
                     </div>
                 </div>
             </div>
-            <div className='fasilitas'>
+            <div className='fasilitas' id='fasilitas'>
                 <div className='home'>
                     <h1>Keunggulan</h1>
                     <div className='fasilitas_images'>
@@ -43,7 +43,7 @@ function Content() {
                     </div>
                 </div>
             </div>
-            <div className='about'>
+            <div className='about' id='about'>
                 <div>
                     <div className='gambar2'>
                         <img src={about} alt="foto" style={{ width:280 }}/>

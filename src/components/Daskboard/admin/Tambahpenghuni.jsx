@@ -44,8 +44,7 @@ function Tambahpenghuni() {
             password: '',
             id_pemilik: id,
         });
-        // window.location.reload() 
-        // window.location.replace('/daskboard/penghuni');
+        window.location.replace('/daskboard/penghuni');
     };
 
     if (loading) {

@@ -1,8 +1,7 @@
-
-
 /* General Styles for Sidebar */
 .sidebar-header {
-    background-color: #4CAF50; /* Hijau lembut */
+    background-color: #4CAF50;
+    /* Hijau lembut */
     color: white;
     text-align: center;
     padding: 20px 10px;
@@ -11,7 +10,7 @@
     font-weight: bold;
 }
 
-.flex{
+.flex {
     display: none;
 }
 
@@ -96,13 +95,13 @@
     display: flex;
     height: auto;
     width: auto;
-    position:sticky;
+    position: sticky;
 }
 
-.contentdask{
+.contentdask {
     padding: 10px;
     display: flex;
-        
+
 }
 
 .Navbar {
@@ -113,6 +112,21 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffde21;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand h2 {
+    color: #333;
+    margin: 0;
+}
+
 
 /* Tampilkan sidebar otomatis di layar besar */
 @media (max-width: 768px) {
@@ -143,7 +157,8 @@
     }
 
     .sidebar-header {
-        background-color: #4CAF50; /* Hijau lembut */
+        background-color: #4CAF50;
+        /* Hijau lembut */
         color: white;
         text-align: center;
         padding: 20px 10px;
@@ -153,7 +168,7 @@
         font-weight: bold;
     }
 
-    .flex{
+    .flex {
         display: flex;
         gap: 100px;
     }
@@ -164,7 +179,7 @@
         position: relative;
     }
 
-    .contentdask{
+    .contentdask {
         padding: 10px;
         display: flex;
         width: 30px;

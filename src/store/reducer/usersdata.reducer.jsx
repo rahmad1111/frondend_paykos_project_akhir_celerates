@@ -6,6 +6,7 @@ const initState = {
     dataPengguna: [],
     dataKos: [],
     pembayaran: [],
+    pembayaranconfir: [],
     informasi: [],
     keluhan: [],
     loading: false,
@@ -21,7 +22,7 @@ const datas = (state = initState, action) => {
                 ...state,
                 loading: true
             }
-        case actionTypes.AUTH_LOGOUT_SUCCESS:
+        case actionTypes.AUTH_LOGIN_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -67,23 +68,6 @@ const datas = (state = initState, action) => {
                 loading: false,
                 error: action.payload
             }
-        case actionTypes.GET_COSMOS_DATA_REQUEST:
-            return {
-                ...state,
-                loading: true
-            }
-        case actionTypes.GET_COSMOS_DATA_SUCCESS:
-            return {
-                ...state,
-                loading: false,
-                dataKos: action.payload
-            }
-        case actionTypes.GET_COSMOS_DATA_FAILURE:
-            return {
-                ...state,
-                loading: false,
-                error: action.payload
-            }
         case actionTypes.CREATE_TENANTS_REQUEST:
             return {
                 ...state,
@@ -93,7 +77,10 @@ const datas = (state = initState, action) => {
             return {
                 ...state,
                 loading: false,
-                dataPengguna: [...state.dataPengguna, action.payload]
+                dataPengguna: [
+                    ...state.dataPengguna,
+                    action.payload
+                ]
             }
         case actionTypes.CREATE_TENANTS_FAILURE:
             return {
@@ -101,24 +88,24 @@ const datas = (state = initState, action) => {
                 loading: false,
                 error: action.payload
             }
-            case actionTypes.DELETE_TENANTS_REQUEST:
-                return { 
-                    ...state, 
-                    loading: true, 
-                    error: null 
-                };
-            case actionTypes.DELETE_TENANTS_SUCCESS:
-                return {
-                    ...state,
-                    loading: false,
-                    deletePenghuni: action.payload.id,
-                };
-            case actionTypes.DELETE_TENANTS_FAILURE:
-                return { 
-                    ...state, 
-                    loading: false, 
-                    error: action.payload 
-                };
+        case actionTypes.DELETE_TENANTS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null
+            };
+        case actionTypes.DELETE_TENANTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                deletePenghuni: action.payload.id,
+            };
+        case actionTypes.DELETE_TENANTS_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            };
         case actionTypes.GET_COMPLAIN_REQUEST:
             return {
                 ...state,
@@ -131,6 +118,91 @@ const datas = (state = initState, action) => {
                 keluhan: action.payload
             }
         case actionTypes.GET_COMPLAIN_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.FETCH_INFORMATION_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.FETCH_INFORMATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                informasi: action.payload
+            }
+        case actionTypes.FETCH_INFORMATION_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.CREATE_COMPLAIN_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.CREATE_COMPLAIN_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keluhan: action.payload
+            }
+        case actionTypes.CREATE_COMPLAIN_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.AUTH_LOGOUT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            }
+        case actionTypes.AUTH_LOGOUT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.AUTH_LOGOUT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.FETCH_PAYMENT_BY_ID_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.FETCH_PAYMENT_BY_ID_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                pembayaran: action.payload
+            }
+        case actionTypes.FETCH_PAYMENT_BY_ID_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
+        case actionTypes.CONFIRMED_PAYMENT_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.CONFIRMED_PAYMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                pembayaranconfir: action.payload
+            }
+        case actionTypes.CONFIRMED_PAYMENT_FAILURE:
             return {
                 ...state,
                 loading: false,
