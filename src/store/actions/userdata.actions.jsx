@@ -1,13 +1,11 @@
 import { actionTypes } from '../actionsTypes'
-import customFetch from "../../api/api";
-
-const baseUrl = `http://localhost:3131/apikos/v1/`
+const baseUrl = process.env.REACT_APP_BASE_URL
 
 export default function auth(params) {
     return async dispatch => {
         dispatch({ type: actionTypes.AUTH_LOGIN_REQUEST, payload: params })
         try {
-            const response = await fetch(baseUrl + "auth/signin", {
+            const response = await fetch(`${baseUrl}auth/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,9 +39,8 @@ export function getUserData() {
         try {
             const token = localStorage.getItem('token');
             const id_pemilik = localStorage.getItem('userId');
-            console.log('ID Pemilik:', id_pemilik); // Debugging log
 
-            const response = await customFetch(baseUrl + "users/data", {
+            const response = await fetch(baseUrl + "users/data", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,8 +88,7 @@ export function geteditUserData(params) {
             // console.log('Payload:', {
             //     id_pemilik: id_pemilik
             // });
-            console.log('idnya : ', params);
-            const response = await customFetch(baseUrl + `users/${params}`, {
+            const response = await fetch(baseUrl + `users/${params}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -123,7 +119,7 @@ export function editUserData(params) {
         dispatch({ type: actionTypes.TENANTS_EDIT_RESPONSE_FAILURE })
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(baseUrl + `users/${params.id}`, {
+            const response = await fetch(baseUrl + `users/${params.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -146,7 +142,7 @@ export function addPenghuni(params) {
         dispatch({ type: actionTypes.CREATE_TENANTS_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}users`, {
+            const response = await fetch(`${baseUrl}users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +155,6 @@ export function addPenghuni(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.CREATE_TENANTS_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.CREATE_TENANTS_FAILURE, payload: error.message });
@@ -172,7 +167,7 @@ export function deletePenghuni(params) {
         dispatch({ type: actionTypes.DELETE_TENANTS_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}users/${params}`, {
+            const response = await fetch(`${baseUrl}users/${params}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -184,7 +179,6 @@ export function deletePenghuni(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.DELETE_TENANTS_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.DELETE_TENANTS_FAILURE, payload: error.message });
@@ -197,7 +191,7 @@ export function getComplain() {
         dispatch({ type: actionTypes.GET_COMPLAIN_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}keluhankos`, {
+            const response = await fetch(`${baseUrl}keluhankos`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -209,7 +203,6 @@ export function getComplain() {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.GET_COMPLAIN_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.GET_COMPLAIN_FAILURE, payload: error.message });
@@ -222,7 +215,7 @@ export function deleteComplain(params) {
         dispatch({ type: actionTypes.DELETE_COMPLAIN_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}keluhankos/${params}`, {
+            const response = await fetch(`${baseUrl}keluhankos/${params}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -234,7 +227,6 @@ export function deleteComplain(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.DELETE_COMPLAIN_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.DELETE_COMPLAIN_FAILURE, payload: error.message });
@@ -247,7 +239,7 @@ export function getInformasi() {
         dispatch({ type: actionTypes.FETCH_INFORMATION_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}informasi`, {
+            const response = await fetch(`${baseUrl}informasi`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -259,7 +251,6 @@ export function getInformasi() {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.FETCH_INFORMATION_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.FETCH_INFORMATION_FAILURE, payload: error.message });
@@ -272,7 +263,7 @@ export function addInfomasi(params) {
         dispatch({ type: actionTypes.CREATE_INFORMATION_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}informasi`, {
+            const response = await fetch(`${baseUrl}informasi`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -285,7 +276,6 @@ export function addInfomasi(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.CREATE_INFORMATION_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.CREATE_INFORMATION_FAILURE, payload: error.message });
@@ -298,7 +288,7 @@ export function addKeluhan(params) {
         dispatch({ type: actionTypes.CREATE_COMPLAIN_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}keluhankos`, {
+            const response = await fetch(`${baseUrl}keluhankos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -311,7 +301,6 @@ export function addKeluhan(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.CREATE_COMPLAIN_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.CREATE_COMPLAIN_FAILURE, payload: error.message });
@@ -324,7 +313,7 @@ export function addPembayaranAdmin(params) {
         dispatch({ type: actionTypes.FETCH_PAYMENT_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}pembayaran`, {
+            const response = await fetch(`${baseUrl}pembayaran`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -337,7 +326,6 @@ export function addPembayaranAdmin(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.FETCH_PAYMENT_SUCCESS, payload: res.message });
         } catch (error) {
             dispatch({ type: actionTypes.FETCH_PAYMENT_FAILURE, payload: error.message });
@@ -350,7 +338,7 @@ export function getPembayaranByid(params) {
         dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}pembayaran/${params}`, {
+            const response = await fetch(`${baseUrl}pembayaran/${params}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -362,7 +350,6 @@ export function getPembayaranByid(params) {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.FETCH_PAYMENT_BY_ID_FAILURE, payload: error.message });
@@ -370,27 +357,26 @@ export function getPembayaranByid(params) {
     };
 }
 
-export function konfirmasiPembayaran(params) {
+export function konfirmasiPembayaran(data) {
     return async dispatch => {
         dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}pembayaran/penghuni/${params.id}`, {
-                method: 'PATCH',
+            console.log(data);
+            const response = await fetch(`${baseUrl}pembayaran`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(params),
+                body: JSON.stringify(data),
             });
-            console.log("data : ", params)
-            console.log("id : ", params.id)
+            console.log(response);
             if (response.status === 403) {
                 window.location.href = '/login';
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             dispatch({ type: actionTypes.CONFIRMED_PAYMENT_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.CONFIRMED_PAYMENT_FAILURE, payload: error.message });
@@ -403,7 +389,7 @@ export function logout() {
         dispatch({ type: actionTypes.AUTH_LOGOUT_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            const response = await customFetch(`${baseUrl}auth/logout`, {
+            const response = await fetch(`${baseUrl}auth/logout`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -415,7 +401,6 @@ export function logout() {
                 return;
             }
             const res = await response.json();
-            console.log("Response Data:", res.data);
             localStorage.removeItem('token');
             localStorage.removeItem('roles');
             localStorage.removeItem('userId');

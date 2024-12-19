@@ -40,7 +40,6 @@ function Editdata() {
         }
     }, [dataPengguna]);
 
-    console.log('data', formData.harga_kamar)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -52,7 +51,6 @@ function Editdata() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editUserData({ id, ...formData }));
-        console.log("Data yang dikirim:", { id, ...formData });
         setFormData({
             harga_kamar: '',
             nama: '',

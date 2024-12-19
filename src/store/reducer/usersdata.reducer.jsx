@@ -14,8 +14,6 @@ const initState = {
 }
 
 const datas = (state = initState, action) => {
-    console.log('Reducer Action:', action);
-    console.log('Reducer State:', state);
     switch (action.type) {
         case actionTypes.AUTH_LOGIN_REQUEST:
             return {

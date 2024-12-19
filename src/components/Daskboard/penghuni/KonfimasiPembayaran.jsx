@@ -10,6 +10,7 @@ function KonfimasiPembayaran() {
     const dispatch = useDispatch();
     const { dataPengguna, pembayaran, loading, error } = useSelector((state) => state.datas);
     const id = localStorage.getItem('userId')
+    console.log(id);
 
     useEffect(() => {
         dispatch(getPembayaranByid(id));
