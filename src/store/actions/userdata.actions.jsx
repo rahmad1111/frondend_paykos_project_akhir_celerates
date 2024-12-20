@@ -110,6 +110,7 @@ export function editUserData(params) {
     return async dispatch => {
         dispatch({ type: actionTypes.TENANTS_EDIT_RESPONSE_FAILURE })
         try {
+            const roles = localStorage.getItem('roles')
             const token = localStorage.getItem('token');
             const response = await fetch(`${baseUrl}users/${params.id}`, {
                 method: 'PATCH',
@@ -131,7 +132,11 @@ export function editUserData(params) {
                     allowOutsideClick: false,
                     timerProgressBar: true,
                 }).then(() => {
-                    window.location.href = '/admin/penghuni';
+                    if(roles === 'admin') {
+                        window.location.href = '/admin/penghuni';
+                    } else {
+                        window.location.href = `/profile/penghuni/${params.id}`;
+                    }
                 });
             }
             
@@ -380,21 +385,62 @@ export function getPembayaranByid(params) {
     };
 }
 
-export function konfirmasiPembayaran(data) {
+export function konfirmasiPembayaran(id, data) {
+    console.log(id);
     return async dispatch => {
         dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
         try {
+            // const idUser = localStorage.getItem('userId')
             const token = localStorage.getItem('token');
-            console.log(data);
-            const response = await fetch(`${baseUrl}pembayaran`, {
-                method: 'POST',
+            const response = await fetch(`${baseUrl}pembayaran/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
-            console.log(response);
+            if(response.status === 500 || response.status > 500) {
+                window.alert('Data gagal dikirim')
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil dikirim',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                }).then(() => {
+                    window.location.href = `/konfirmasitagihan`;
+                });
+            }
+            
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function konfirmasiPembayaranDariPemilik(id, data) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${baseUrl}pembayaran/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
             if (response.status === 403) {
                 window.location.href = '/login';
                 return;

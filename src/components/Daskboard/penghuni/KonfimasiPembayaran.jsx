@@ -9,6 +9,7 @@ import { geteditUserData, getPembayaranByid } from '../../../store/actions/userd
 function KonfimasiPembayaran() {
     const dispatch = useDispatch();
     const { dataPengguna, pembayaran, loading, error } = useSelector((state) => state.datas);
+    console.log(pembayaran.filter(p => p.status === null));
     const id = localStorage.getItem('userId')
 
     useEffect(() => {
@@ -25,29 +26,35 @@ function KonfimasiPembayaran() {
     }
 
     return (
-        <div>
-            <h3>Konfirmasi Pembayaran</h3>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', width: '100%', padding: '2rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+                <h3>Bayar Tagihan</h3>
+                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', padding: '2rem', gap: '1rem', alignItems: 'center' }}>
+                {pembayaran.filter(p => p.status === null || p.status === "").slice().reverse().map((p) => {
+    return (
+        <div key={p.id}>
+            <Card style={{ width: 'auto' }} >
+                <Card.Body>
+                    <Card.Title>Tagihan : {dataPengguna.nama}</Card.Title>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroup.Item>Jumlah tagihan : {dataPengguna.harga_kamar}</ListGroup.Item>
+                    <ListGroup.Item>Batas tagihan : {p.batas_waktu}</ListGroup.Item>
+                    <ListGroup.Item>Status tagihan : {p.status}</ListGroup.Item>
+                </ListGroup>
+                <Link to={`/detailkonfirmasitagihan/${p.id}`}>
+                    <Button variant="primary">Bayar Tagihan</Button>
+                </Link>
+            </Card>
+            <br />
+        </div>
+    );
+})}
 
-            {pembayaran.slice().reverse().map((p) => {
-                return (
-                    <div key={p.id}>
-                        <Card style={{ width: 'auto' }} >
-                            <Card.Body>
-                                <Card.Title>Tagihan : {dataPengguna.nama}</Card.Title>
-                            </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroup.Item>Jumlah bayar : {dataPengguna.harga_kamar}</ListGroup.Item>
-                                <ListGroup.Item>Batas Bayar : {p.batas_waktu}</ListGroup.Item>
-                                <ListGroup.Item>Status Bayar : { p.status }</ListGroup.Item>
-                            </ListGroup>
-                            <Link to={`/daskboard/detailkonfirmasitagihan/${p.id}`}>
-                                <Button variant="primary">Konfirmasi Bayar</Button>
-                            </Link>
-                        </Card>
-                        <br />
-                    </div>
-                )
-            })}
+
+                </div>
+            </div>
+
         </div>
     )
 }

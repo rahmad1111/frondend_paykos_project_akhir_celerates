@@ -58,7 +58,6 @@ function ProfilePenghuni() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editUserData({ id, ...formData }));
-        alertify.success('Data telah disimpan!');
     };
 
     if (loading) {
@@ -122,7 +121,7 @@ function ProfilePenghuni() {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password:(Kosongkan Jika tidak ingin mengubah)</label>
+                    <label>Password: (Wajib diisi)</label>
                     <input
                         type="text"
                         name="password"

@@ -34,15 +34,16 @@ function DetailKonfirmasiPembayaran() {
                 id_penghuni: idPenghuni,
                 jenis_pembayaran: formData.jenis_pembayaran,
                 bukti: imgBukti,
+                status:'Belum Bayar'
             }
-            dispatch(konfirmasiPembayaran((id, newBayar)));
+            dispatch(konfirmasiPembayaran(id, newBayar));
         };
 
         setFormData({
             jenis_pembayaran: '',
             bukti:''
         });
-};
+    };
 
     if(role === 'penghuni') {
         return (
@@ -55,7 +56,7 @@ function DetailKonfirmasiPembayaran() {
                             type="text"
                             name="jenis_pembayaran"
                             value={formData.jenis_pembayaran}
-                            onChange={(e) => setFormData({...formData,[e.target.name]: e.target.value},)}
+                            onChange={(e) => setFormData({...formData,[e.target.name]: e.target.value})}
                         />
                     </div>
                     <div className="form-group">

@@ -35,7 +35,6 @@ function Tambahtagihan() {
             no_rekening: formData.no_rekening,
             status: 'Belum Bayar',
         };
-        console.log(dataTagihan);
         dispatch(addPembayaranAdmin(dataTagihan)); // Langsung kirim `formData`
         setFormData({
             id_penghuni: '',

@@ -91,7 +91,7 @@ function Tampildata() {
       <div className='flex-tampildata'>
         {filteredData.length > 0 ? (
           filteredData.map((pengguna, index) => (
-            <div key={pengguna.id}>
+            <div style={{flexBasis : '250px', maxWidth : '300px'}} key={pengguna.id}>
               <Card className="costum-card" style={{ width: 'auto' }}>
                 <Card.Header>{index + 1}</Card.Header>
                 <Card.Body>
