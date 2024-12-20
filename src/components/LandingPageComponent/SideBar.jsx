@@ -23,32 +23,6 @@ function Dropdown() {
         };
     }, []);
 
-    const handleLogout = () => {
-        Swal.fire({
-            title: 'Yakin mau keluar?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Ya',
-            cancelButtonText: 'Tidak',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.clear();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil',
-                    text: 'Akun berhasil keluar',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    allowEscapeKey: false,
-                    allowOutsideClick: false,
-                    timerProgressBar: true,
-                }).then(() => {
-                    window.location.href = '/';
-                });
-            }
-        });
-    };
-
     if (token && role === 'admin') {
         return (
             <div className="dropdown">
@@ -56,9 +30,10 @@ function Dropdown() {
                     ≡
                 </button>
                 <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
-                    <a href="/daskboard">Dashboard</a>
-                    <a href={`/admin/konfirmasitagihanpenghuni/${id}`}>Data Tagihan</a>
+                    <a href={`/admin/penghuni`}>Data Penghuni</a>
+                    <a href={`/admin/konfirmasitagihanpenghuni/${id}`}>Konfirmasi Pembayaran</a>
                     <a href={`/admin/profile/admin/${id}`}>Profil</a>
+                    <a href={`/admin/tambahinformasi`}>Tambah Informasi</a>
                 </ul>
             </div>
         );
@@ -69,7 +44,9 @@ function Dropdown() {
                     ≡
                 </button>
                 <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
-                    <a href="/daskboard">Dashboard</a>
+                    <a href={`/profile/penghuni/${id}`}>Profil</a>
+                    <a href="/konfirmasitagihan">Tagihan</a>
+                    <a href="/tambahkeluhan">Keluhan</a>
                 </ul>
             </div>
         );

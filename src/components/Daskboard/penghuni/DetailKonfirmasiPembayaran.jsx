@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 function DetailKonfirmasiPembayaran() {
     const role = localStorage.getItem('roles')
     const idPenghuni = localStorage.getItem('userId');
-    const { id } = useParams();
+    const { id } = useParams();  // Mengambil ID dari URL
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
@@ -34,15 +34,17 @@ function DetailKonfirmasiPembayaran() {
                 id_penghuni: idPenghuni,
                 jenis_pembayaran: formData.jenis_pembayaran,
                 bukti: imgBukti,
+                status:'Belum Bayar'
             }
-            dispatch(konfirmasiPembayaran((id, newBayar)));
+            // Mengirim id dari URL beserta data pembayaran yang baru
+            dispatch(konfirmasiPembayaran(id, newBayar));
         };
 
         setFormData({
             jenis_pembayaran: '',
             bukti:''
         });
-};
+    };
 
     if(role === 'penghuni') {
         return (
@@ -55,7 +57,7 @@ function DetailKonfirmasiPembayaran() {
                             type="text"
                             name="jenis_pembayaran"
                             value={formData.jenis_pembayaran}
-                            onChange={(e) => setFormData({...formData,[e.target.name]: e.target.value},)}
+                            onChange={(e) => setFormData({...formData,[e.target.name]: e.target.value})}
                         />
                     </div>
                     <div className="form-group">

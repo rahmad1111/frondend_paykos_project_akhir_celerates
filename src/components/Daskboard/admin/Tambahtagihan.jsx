@@ -7,7 +7,6 @@ import { addPembayaranAdmin, getUserData } from "../../../store/actions/userdata
 function Tambahtagihan() {
     const dispatch = useDispatch();
     const { dataPengguna, loading, error } = useSelector((state) => state.datas);
-    console.log(dataPengguna);
     const [formData, setFormData] = useState({
         id_penghuni: '',
         batas_waktu: '',
@@ -36,7 +35,6 @@ function Tambahtagihan() {
             no_rekening: formData.no_rekening,
             status: 'Belum Bayar',
         };
-        console.log(dataTagihan);
         dispatch(addPembayaranAdmin(dataTagihan)); // Langsung kirim `formData`
         setFormData({
             id_penghuni: '',
