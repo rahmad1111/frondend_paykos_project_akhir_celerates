@@ -407,6 +407,33 @@ export function konfirmasiPembayaran(data) {
     };
 }
 
+export function konfirmasiPembayaranDariPemilik(id, data) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            console.log(data);
+            const response = await fetch(`${baseUrl}pembayaran/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(data),
+            });
+            console.log(response);
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.CONFIRMED_PAYMENT_FAILURE, payload: error.message });
+        }
+    };
+}
+
 export function getPembayaranPenggunaByID(data) {
     return async dispatch => {
         dispatch({ type: actionTypes.FETCH_USER_PAYMENT_REQUEST });

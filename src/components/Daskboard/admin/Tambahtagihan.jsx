@@ -7,6 +7,7 @@ import { addPembayaranAdmin, getUserData } from "../../../store/actions/userdata
 function Tambahtagihan() {
     const dispatch = useDispatch();
     const { dataPengguna, loading, error } = useSelector((state) => state.datas);
+    console.log(dataPengguna);
     const [formData, setFormData] = useState({
         id_penghuni: '',
         batas_waktu: '',

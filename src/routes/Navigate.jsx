@@ -11,7 +11,6 @@ import ProfileAdmin from "../components/Daskboard/admin/ProfileAdmin";
 import Tambahpenghuni from "../components/Daskboard/admin/Tambahpenghuni";
 import Tambahtagihan from "../components/Daskboard/admin/Tambahtagihan";
 import Tambahinformasi from "../components/Daskboard/admin/Tambahinformasi";
-import Detailkonfirmasitagihanpenghuni from "../components/Daskboard/admin/Detailkonfirmasitagihanpenghuni";
 import Konfirmasitagihanpenghuni from "../components/Daskboard/admin/Konfirmasitagihanpenghuni";
 
 // Halaman Penghuni
@@ -37,7 +36,6 @@ function Navigate() {
                 <Route path="/admin/tambahpenghuni" element={<Tambahpenghuni />} />
                 <Route path="/admin/daftartagihan" element={<Tambahtagihan />} />
                 <Route path="/admin/konfirmasitagihanpenghuni/:id" element={<Konfirmasitagihanpenghuni />} />
-                <Route path="/admin/detailkonfirmasitagihanpengguna/:id" element={<Detailkonfirmasitagihanpenghuni />} />
 
                 <Route path="/daftartagihan" element={<TestTampilan1 />} />
                 <Route path="/profilpengguna" element={<TestTampilan2 />} />
