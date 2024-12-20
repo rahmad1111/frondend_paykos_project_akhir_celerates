@@ -12,5 +12,11 @@ export default defineConfig(({ mode }) => {
       'process.env.REACT_APP_SUPABASE_KEY': JSON.stringify(env.REACT_APP_SUPABASE_KEY),
     },
     plugins: [react()],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './test/setup.js',
+      include: ['**/__tests__/**/*.{js,ts,jsx,tsx}'],
+    },
   };
 });
