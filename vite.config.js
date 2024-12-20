@@ -18,5 +18,6 @@ export default defineConfig(({ mode }) => {
       setupFiles: './test/setup.js',
       include: ['**/__tests__/**/*.{js,ts,jsx,tsx}'],
     },
+    
   };
 });
