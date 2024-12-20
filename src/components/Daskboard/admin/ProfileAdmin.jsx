@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { geteditUserData, editUserData } from "../../../store/actions/userdata.actions";
-import Swal from "sweetalert2";
 
 function ProfileAdmin() {
     const { id } = useParams();

@@ -1,4 +1,5 @@
 import { actionTypes } from '../actionsTypes'
+// eslint-disable-next-line no-undef
 const baseUrl = process.env.REACT_APP_BASE_URL;
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
