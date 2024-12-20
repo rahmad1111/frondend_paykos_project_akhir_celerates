@@ -7,6 +7,9 @@ function Konfirmasitagihanpenghuni() {
     return (
         <div>
             <h3>Konfirmasi Pembayaran</h3>
+            <div className='grid'>
+                WNFNKJEWKF
+            </div>
             <Card style={{ width: 'auto' }}>
                 <Card.Body>
                     <Card.Title>Nama Penggua</Card.Title>

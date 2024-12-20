@@ -12,7 +12,6 @@ function Register() {
     event.preventDefault();
     setLoading(true);
     await delay(500);
-    console.log(`Username :${inputUsername}, Password :${inputPassword}`);
     if (inputUsername !== "admin" || inputPassword !== "admin") {
       setShow(true);
     }

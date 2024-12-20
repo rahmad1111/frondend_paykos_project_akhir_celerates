@@ -20,22 +20,21 @@ function Tampilanawalpenghuni() {
     }
 
     return (
-        <div>
-            <br />
+        <div style={{display : 'flex', flexDirection : 'column', gap : '2rem'}}>
             <h5>Informasi Kos</h5>
             {informasi
                 .slice()
                 .reverse()
                 .map((informasi) => (
                     <div key={informasi.id}>
-                        <Card style={{ width: "auto" }}>
+                        <div className="card-dashboard">
                             <Card.Body>
                                 <Card.Text>{informasi.informasi}</Card.Text>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
                                 <ListGroup.Item>{informasi.createdAt}</ListGroup.Item>
                             </ListGroup>
-                        </Card>
+                        </div>
                         <br />
                     </div>
                 ))}

@@ -1,5 +1,0 @@
-import jwt from 'jsonwebtoken'
-
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE0LCJuYW1lIjoiVGVzIiwibm9tZXJfcGVuZ2d1bmEiOiI4MDQwMjQiLCJpYXQiOjE3MzM1NjI2NzgsImV4cCI6MTczMzU2MjY5OH0.pnJdkwzNRtCC5Keitg4kct7dUvKMGWpdjy3Ajs7RV-U"
-const decode = jwt.decode(token)
-console.log(decode.name)

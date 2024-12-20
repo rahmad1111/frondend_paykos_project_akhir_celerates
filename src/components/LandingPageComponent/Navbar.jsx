@@ -1,17 +1,34 @@
 import { Link } from "react-router-dom";
+import SideBar from "./SideBar";
 
 function Navbar() {
+  const id = localStorage.getItem('userId')
+  const handleLogout = () => {
+    localStorage.clear();
+    window.location.href = '/login'
+  };
+  
   return (
-    <>
-        <nav>
-            <ul className="ul">
-                <li className="li"><a href="#content">Home</a></li>
-                <li className="li"><a href="#fasilitas">Fasilitas</a></li>
-                <li className="li"><a href="#about">Tentang</a></li>
-                <li className="right"><Link to="/login">Login</Link></li>
-            </ul>
-        </nav>
-    </>
+    <nav className="navbar">
+      <div style={{ display: 'flex', flex: '1', justifyContent: 'start' }}>
+        <ul>
+          <li><SideBar /></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="/daskboard">Dashboard</a></li>
+          <li><a href="/tambahkeluhan">Tambah Keluhan</a></li>
+          <li><a href="/admin/penghuni">Data Penghuni</a></li>
+          {
+            id ? '' : <li><a href="#fasilitas">Fasilitas</a></li>
+          }
+          {
+            id ? '' :  ''
+          }
+        </ul>
+      </div>
+      {
+          id ? <button style={{padding : '1rem', backgroundColor : '#A84513FF', borderRadius : '10px', color : 'white', textDecoration : 'none', border: 'none'}} onClick={handleLogout}>Logout</button> : <Link to="/login" style={{padding : '1rem', backgroundColor : '#2c5c81', borderRadius : '10px', color : 'white', textDecoration : 'none', border: 'none'}}>Login</Link>
+        }
+    </nav>
   )
 }
 

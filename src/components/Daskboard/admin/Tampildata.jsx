@@ -1,11 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
-import '../../../styles/Admin/tampildata.css';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deletePenghuni, getUserData } from "../../../store/actions/userdata.actions";
+import Swal from 'sweetalert2';
 
 function Tampildata() {
   const dispatch = useDispatch();
@@ -40,10 +40,32 @@ function Tampildata() {
   };
 
   const handleDelete = (id) => {
-    dispatch(deletePenghuni(id));
+    Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: 'Data yang dihapus tidak dapat dikembalikan!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deletePenghuni(id));
+        Swal.fire({
+          icon: 'success',
+          title: 'Dihapus!',
+          text: 'Data berhasil dihapus.',
+          timer: 2000,
+          showConfirmButton: false,
+          allowEscapeKey: false,
+          allowOutsideClick: false,
+          timerProgressBar: true,
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+    })
     setFilteredData((prevData) => prevData.filter((pengguna) => pengguna.id !== id));
     setSelectedPenghuni(null);
-    console.log('idnya: ', id)
   };
 
   if (loading) {
@@ -55,10 +77,10 @@ function Tampildata() {
   }
 
   return (
-    <div>
+    <div style={{ minHeight: '85vh', padding: '2rem' }}>
       <p>Data Penghuni</p>
       <div className="search-container">
-        <input
+        <input style={{ width: "100%", padding: '0.5rem', borderRadius: '5px', borderWidth: '1px', marginTop: '0.5rem' }}
           type="text"
           placeholder="Cari..."
           value={searchQuery}
@@ -75,42 +97,19 @@ function Tampildata() {
                 <Card.Body>
                   <Card.Title>{pengguna.nama}</Card.Title>
                   <Card.Text>{pengguna.no_telepon}</Card.Text>
-                  <Link to={`/daskboard/editpenghuni/${pengguna.id}`}>
-                    <Button variant="primary">Edit</Button>
-                  </Link>
-                  <Button
-                    variant="danger"
-                    onClick={() => handleShow(pengguna)}
-                  >
-                    Hapus
-                  </Button>
                 </Card.Body>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: '1rem' }}>
+                  <a className='btn btn-primary' href={`/admin/editpenghuni/${pengguna.id}`}>Edit</a>
+                  <button className='btn btn-danger' onClick={() => handleDelete(pengguna)}>Hapus</button>
+                </div>
               </Card>
-
             </div>
+
           ))
         ) : (
           <p>Data tidak ditemukan</p>
         )}
       </div>
-      {selectedPenghuni && (
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Apakah Ingin Menghapus?</Modal.Title>
-          </Modal.Header>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Batal
-            </Button>
-            <Button variant="primary" onClick={() => {
-              handleDelete(selectedPenghuni.id);
-              handleClose();
-            }} >
-              Oke
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      )}
     </div>
   );
 }

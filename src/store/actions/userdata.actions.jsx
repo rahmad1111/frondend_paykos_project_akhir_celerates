@@ -1,5 +1,8 @@
 import { actionTypes } from '../actionsTypes'
-const baseUrl = process.env.REACT_APP_BASE_URL
+const baseUrl = process.env.REACT_APP_BASE_URL;
+import alertify from 'alertifyjs';
+import 'alertifyjs/build/css/alertify.css';
+import Swal from 'sweetalert2';
 
 export default function auth(params) {
     return async dispatch => {
@@ -64,9 +67,6 @@ export function getUserData() {
                 throw new Error(res.message || `HTTP error! status: ${response.status}`);
             }
 
-            // Debugging log untuk response data
-            console.log('API Response:', res);
-
             // Dispatch the action with the data
             dispatch({ type: actionTypes.GET_TENANTS_SUCCESS, payload: res?.datas });
 
@@ -104,7 +104,6 @@ export function geteditUserData(params) {
                 const error = await response.json();
                 throw new Error(error.message || `HTTP error! status: ${response.status}`);
             }
-            console.log('API Response:', res);
             dispatch({ type: actionTypes.TENANTS_EDIT_SUCCESS, payload: res?.data });
         } catch (error) {
             dispatch({ type: actionTypes.TENANTS_EDIT_FAILURE, payload: error.message });
@@ -119,7 +118,7 @@ export function editUserData(params) {
         dispatch({ type: actionTypes.TENANTS_EDIT_RESPONSE_FAILURE })
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(baseUrl + `users/${params.id}`, {
+            const response = await fetch(`${baseUrl}users/${params.id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,6 +126,22 @@ export function editUserData(params) {
                 },
                 body: JSON.stringify(params)
             })
+            if(response.status === 500 || response.status > 500) {
+                alertify.error('Data gagal disimpan');
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil disimpan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                }).then(() => {
+                    window.location.href = '/admin/penghuni';
+                });
+            }
+            
             if (response.status === 403) {
                 window.location.href = '/login';
                 return;
@@ -150,6 +165,21 @@ export function addPenghuni(params) {
                 },
                 body: JSON.stringify(params),
             });
+            if(response.status === 500 || response.status > 500) {
+                alertify.error('Data gagal disimpan');
+            } else {
+                Swal.fire({
+                    icon: 'success',
+                    text: 'Data berhasil disimpan',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    timerProgressBar: true,
+                }).then(() => {
+                    window.location.href = '/admin/penghuni';
+                });
+            }
             if (response.status === 403) {
                 window.location.href = '/login';
                 return;

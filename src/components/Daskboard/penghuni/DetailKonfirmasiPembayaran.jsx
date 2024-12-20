@@ -1,6 +1,4 @@
 import { useState } from "react";
-import '../../../styles/Admin/editdata.css';
-import 'alertifyjs/build/css/alertify.css';
 import { useDispatch } from 'react-redux';
 import { imgSupabase } from "../../../store/actions/supabase.action";
 import { konfirmasiPembayaran } from "../../../store/actions/userdata.actions";

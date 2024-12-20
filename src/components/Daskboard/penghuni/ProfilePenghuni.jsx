@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import '../../../styles/Admin/editdata.css';
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { geteditUserData, editUserData } from "../../../store/actions/userdata.actions";
 
@@ -50,7 +47,6 @@ function ProfilePenghuni() {
         }
     }, [dataPengguna]);
 
-    console.log('data', formData.harga_kamar)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -62,7 +58,6 @@ function ProfilePenghuni() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editUserData({ id, ...formData }));
-        console.log("Data yang dikirim:", { id, ...formData });
         alertify.success('Data telah disimpan!');
     };
 

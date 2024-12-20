@@ -10,16 +10,25 @@
   width: auto;
 }
 
-
-
 .flex-container {
   display: flex;
   flex-wrap: wrap;
-  /* Allow items to wrap into a new row */
 }
 
 .flex-item {
   width: 30%;
-  /* Adjust width to fit multiple items in one row */
   margin: 10px;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  background-color: #1c1c1c;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.navbar ul li {
+  list-style: none;
 }

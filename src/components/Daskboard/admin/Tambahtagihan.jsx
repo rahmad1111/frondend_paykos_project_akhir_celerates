@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import '../../../styles/Admin/editdata.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,16 +7,10 @@ import { addPembayaranAdmin, getUserData } from "../../../store/actions/userdata
 function Tambahtagihan() {
     const dispatch = useDispatch();
     const { dataPengguna, loading, error } = useSelector((state) => state.datas);
-
     const [formData, setFormData] = useState({
-        id_penghuni: null,
+        id_penghuni: '',
         batas_waktu: '',
         no_rekening: '',
-        jenis_pembayaran: '',
-        harga: '',
-        jumlah_pembayaran: '',
-        periode_pembayaran: '',
-        tanggal_bayar: '',
         status: '',
     });
 
@@ -35,14 +28,20 @@ function Tambahtagihan() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(addPembayaranAdmin(formData)); // Langsung kirim `formData`
-        console.log("Data yang dikirim:", formData);
-        
+        const dataTagihan = {
+            id_pemilik : 1,
+            id_penghuni: formData.id_penghuni,
+            batas_waktu: formData.batas_waktu,
+            no_rekening: formData.no_rekening,
+            status: 'Belum Bayar',
+        };
+        console.log(dataTagihan);
+        dispatch(addPembayaranAdmin(dataTagihan)); // Langsung kirim `formData`
         setFormData({
             id_penghuni: '',
             batas_waktu: '',
             no_rekening: '',
-            status: 'Belum Bayar',
+            status: '',
         });
         // window.location.replace('/daskboard/penghuni');
         if (formData.id_penghuni || formData.batas_waktu || formData.no_rekening) {

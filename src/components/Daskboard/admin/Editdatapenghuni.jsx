@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import '../../../styles/Admin/editdata.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,16 +27,14 @@ function Editdata() {
 
     // Update formData setelah data pengguna diambil
     useEffect(() => {
-        if (dataPengguna) {
-            setFormData({
-                harga_kamar: dataPengguna.harga_kamar || '',
-                nama: dataPengguna.nama || '',
-                no_telepon: dataPengguna.no_telepon || '',
-                nomer_kamar: dataPengguna.nomer_kamar || null,
-                periode_pembayaran: dataPengguna.periode_pembayaran || '',
-                nomer_pengguna: dataPengguna.nomer_pengguna || '',
-            });
-        }
+        setFormData({
+            harga_kamar: dataPengguna.harga_kamar || '',
+            nama: dataPengguna.nama || '',
+            no_telepon: dataPengguna.no_telepon || '',
+            nomer_kamar: dataPengguna.nomer_kamar || null,
+            periode_pembayaran: dataPengguna.periode_pembayaran || '',
+            nomer_pengguna: dataPengguna.nomer_pengguna || '',
+        });
     }, [dataPengguna]);
 
     const handleChange = (e) => {
@@ -60,9 +57,6 @@ function Editdata() {
             nomer_pengguna: '',
             password: '',
         });
-        alertify.success('Data telah disimpan!');
-        window.location.reload()
-        window.location.replace('/daskboard/penghuni')
     };
 
     if (loading) {
@@ -130,6 +124,15 @@ function Editdata() {
                         value={formData.nomer_pengguna}
                         onChange={handleChange}
                         disabled
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Password:(Wajib diisi)</label>
+                    <input
+                        type="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
                     />
                 </div>
                 <button type="submit" className="submit-btn">Submit</button>

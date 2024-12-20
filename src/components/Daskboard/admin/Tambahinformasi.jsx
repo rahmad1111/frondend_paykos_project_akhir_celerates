@@ -1,5 +1,4 @@
 import { useState } from "react";
-import '../../../styles/Admin/editdata.css';
 import alertify from 'alertifyjs';
 import 'alertifyjs/build/css/alertify.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +12,6 @@ function Tambahinformasi() {
         informasi: '',
     });
 
-    console.log('data', formData.informasi)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -25,7 +23,6 @@ function Tambahinformasi() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addInfomasi(formData ));
-        console.log("Data yang dikirim:", { formData });
         alertify.success('Data telah disimpan!');
         setFormData({
             informasi: '',

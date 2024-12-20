@@ -1,5 +1,4 @@
 import { useState } from "react";
-import '../../../styles/Admin/editdata.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addKeluhan } from "../../../store/actions/userdata.actions";
 
@@ -12,7 +11,6 @@ function TambahKeluhan() {
         isi_keluhan: '',
     });
 
-    console.log('data', formData.informasi)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -24,7 +22,6 @@ function TambahKeluhan() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(addKeluhan(formData));
-        console.log("Data yang dikirim:",  formData );
         setFormData({
             judul_keluhan: '',
             isi_keluhan: '',

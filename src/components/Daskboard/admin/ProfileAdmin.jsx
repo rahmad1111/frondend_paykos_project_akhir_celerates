@@ -1,23 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import '../../../styles/Admin/editdata.css';
-import alertify from 'alertifyjs';
-import 'alertifyjs/build/css/alertify.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { geteditUserData, editUserData } from "../../../store/actions/userdata.actions";
+import Swal from "sweetalert2";
 
 function ProfileAdmin() {
-    const { id } = useParams(); // Ambil ID dari URL
+    const { id } = useParams();
     const dispatch = useDispatch();
     const { dataPengguna, loading, error } = useSelector((state) => state.datas);
-
-
-
 
     const [formData, setFormData] = useState({
         harga_kamar: '',
         nama: '',
-        no_telepon: 'bbbb',
+        no_telepon: '',
         roles: '',
         nomer_kamar: null,
         periode_pembayaran: '',
@@ -29,6 +24,17 @@ function ProfileAdmin() {
         dispatch(geteditUserData(id));
     }, [dispatch, id]);
     
+    // if(!dataPengguna.password) {
+    //     Swal.fire({
+    //         title: 'Ups...',
+    //         text: 'Password tidak boleh kosong!',
+    //         icon: 'error',
+    //         timer: 2000,
+    //         showCancelButton: true,
+    //         confirmButtonText: false,
+    //         cancelButtonText: false,
+    //     });
+    // }
 
     useEffect(() => {
         if (dataPengguna) {
@@ -43,13 +49,12 @@ function ProfileAdmin() {
                     nama: dataPengguna.nama || '',
                     no_telepon: dataPengguna.no_telepon || '',
                     nomer_pengguna: dataPengguna.nomer_pengguna || '',
-                    password: '',
+                    password: dataPengguna.password,
                 });
             }
         }
     }, [dataPengguna]);
 
-    console.log('data', formData.harga_kamar)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -61,8 +66,6 @@ function ProfileAdmin() {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(editUserData({ id, ...formData }));
-        console.log("Data yang dikirim:", { id, ...formData });
-        alertify.success('Data telah disimpan!');
     };
 
     if (loading) {
@@ -106,9 +109,9 @@ function ProfileAdmin() {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Password:(Kosongkan Jika tidak ingin mengubah)</label>
+                    <label>Password:(Wajib diisi)</label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}

@@ -19,7 +19,7 @@ const Login = () => {
             {isAuthenticated ? (
                 <h2>Welcome, {user.nama}!</h2>  // Menampilkan nama pengguna setelah login
             ) : (
-                <div>
+                <form>
                     <input
                         type="text"
                         placeholder="Nomor Pengguna"
@@ -36,7 +36,7 @@ const Login = () => {
                         {loading ? 'Logging in...' : 'Login'}
                     </button>
                     {error && <p>{error}</p>}  {/* Menampilkan pesan error jika login gagal */}
-                </div>
+                </form>
             )}
         </div>
     );

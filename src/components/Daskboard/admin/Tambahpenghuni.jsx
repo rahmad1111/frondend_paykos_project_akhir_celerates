@@ -1,7 +1,7 @@
 import { useState } from "react";
-import '../../../styles/Admin/editdata.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPenghuni } from "../../../store/actions/userdata.actions";
+import Swal from "sweetalert2";
 
 function Tambahpenghuni() {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function Tambahpenghuni() {
         nama: '',
         no_telepon: '',
         roles: 'penghuni',
-        nomer_kamar: null,
+        nomer_kamar: '',
         periode_pembayaran: '',
         nomer_pengguna: '',
         password: '',
@@ -30,8 +30,18 @@ function Tambahpenghuni() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(!formData.password) {
+            Swal.fire({
+                title: 'Ups...',
+                text: 'Password harus diisi',
+                icon: 'error',
+                timer: 2000,
+                showCancelButton: false,
+                showConfirmButton: false,
+            });
+            return
+        }
         dispatch(addPenghuni(formData)); // Langsung kirim `formData`
-        console.log("Data yang dikirim:", formData);
 
         setFormData({
             harga_kamar: '',
@@ -44,7 +54,7 @@ function Tambahpenghuni() {
             password: '',
             id_pemilik: id,
         });
-        window.location.replace('/daskboard/penghuni');
+        
     };
 
     if (loading) {
@@ -78,7 +88,7 @@ function Tambahpenghuni() {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Nomer Kamar:</label>
+                    <label>Nomor Kamar:</label>
                     <input
                         type="number"
                         name="nomer_kamar"
@@ -126,7 +136,7 @@ function Tambahpenghuni() {
                 <div className="form-group">
                     <label>Password (Buat Password Awal):</label>
                     <input
-                        type="text"
+                        type="password"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
