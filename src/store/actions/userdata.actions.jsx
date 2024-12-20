@@ -55,26 +55,22 @@ export function getUserData() {
                 })
             });
 
-            // Handle unauthorized access
             if (response.status === 403) {
                 window.location.href = '/login';
-                return; // Stop further execution if status is 403
+                return;
             }
 
-            // Parse response JSON
             const res = await response.json();
 
             if (!response.ok) {
                 throw new Error(res.message || `HTTP error! status: ${response.status}`);
             }
 
-            // Dispatch the action with the data
             dispatch({ type: actionTypes.GET_TENANTS_SUCCESS, payload: res?.datas });
 
         } catch (error) {
-            // Dispatch failure action if an error occurs
             dispatch({ type: actionTypes.GET_TENANTS_FAILURE, payload: error.message });
-            console.error("Error fetching data:", error); // Debugging log
+            console.error("Error fetching data:", error);
         }
     };
 }
@@ -85,10 +81,6 @@ export function geteditUserData(params) {
         dispatch({ type: actionTypes.TENANTS_EDIT_REQUEST });
         try {
             const token = localStorage.getItem('token');
-            // console.log('IDnya : ', id_pemilik);
-            // console.log('Payload:', {
-            //     id_pemilik: id_pemilik
-            // });
             const response = await fetch(baseUrl + `users/${params}`, {
                 method: 'GET',
                 headers: {
@@ -411,6 +403,30 @@ export function konfirmasiPembayaran(data) {
             dispatch({ type: actionTypes.CONFIRMED_PAYMENT_SUCCESS, payload: res.data });
         } catch (error) {
             dispatch({ type: actionTypes.CONFIRMED_PAYMENT_FAILURE, payload: error.message });
+        }
+    };
+}
+
+export function getPembayaranPenggunaByID(data) {
+    return async dispatch => {
+        dispatch({ type: actionTypes.FETCH_USER_PAYMENT_REQUEST });
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${baseUrl}pembayaran/all/${data}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            if (response.status === 403) {
+                window.location.href = '/login';
+                return;
+            }
+            const res = await response.json();
+            dispatch({ type: actionTypes.FETCH_USER_PAYMENT_SUCCESS, payload: res.data });
+        } catch (error) {
+            dispatch({ type: actionTypes.FETCH_USER_PAYMENT_FAILURE, payload: error.message });
         }
     };
 }

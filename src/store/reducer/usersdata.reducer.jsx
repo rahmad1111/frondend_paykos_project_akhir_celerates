@@ -206,6 +206,23 @@ const datas = (state = initState, action) => {
                 loading: false,
                 error: action.payload
             }
+        case actionTypes.FETCH_USER_PAYMENT_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.FETCH_USER_PAYMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                pembayaranconfir: action.payload
+            }
+        case actionTypes.FETCH_USER_PAYMENT_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload
+            }
         default:
             return state;
     }

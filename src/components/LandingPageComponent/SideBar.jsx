@@ -52,19 +52,20 @@ function Dropdown() {
     if (token && role === 'admin') {
         return (
             <div className="dropdown">
-                <button style={{padding : '1rem', border : 'none', borderRadius:'5px'}} onClick={toggleDropdown}>
+                <button style={{ padding: '1rem', border: 'none', borderRadius: '5px' }} onClick={toggleDropdown}>
                     ≡
                 </button>
                 <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
                     <a href="/daskboard">Dashboard</a>
+                    <a href={`/admin/konfirmasitagihanpenghuni/${id}`}>Data Tagihan</a>
                     <a href={`/admin/profile/admin/${id}`}>Profil</a>
                 </ul>
-            </div> 
+            </div>
         );
     } else if (token && role === 'penghuni') {
         return (
             <div className="dropdown">
-                <button style={{padding : '1rem', border : 'none', borderRadius:'5px'}} onClick={toggleDropdown}>
+                <button style={{ padding: '1rem', border: 'none', borderRadius: '5px' }} onClick={toggleDropdown}>
                     ≡
                 </button>
                 <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>
@@ -75,7 +76,7 @@ function Dropdown() {
     } else {
         return (
             <div className="dropdown">
-                <button style={{padding : '1rem', border : 'none', borderRadius:'5px'}} onClick={toggleDropdown}>
+                <button style={{ padding: '1rem', border: 'none', borderRadius: '5px' }} onClick={toggleDropdown}>
                     ≡
                 </button>
                 <ul className={`dropdown-menu ${isOpen ? 'open' : ''}`}>

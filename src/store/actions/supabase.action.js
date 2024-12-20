@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { createClient } from '@supabase/supabase-js';
 const supaUrl = process.env.REACT_APP_SUPABASE_URL;
 const supaBkt = process.env.REACT_APP_SUPABASE_BUCKET;

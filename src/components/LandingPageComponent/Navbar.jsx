@@ -16,7 +16,9 @@ function Navbar() {
           <li><a href="/">Home</a></li>
           <li><a href="/daskboard">Dashboard</a></li>
           <li><a href="/tambahkeluhan">Tambah Keluhan</a></li>
-          <li><a href="/admin/penghuni">Data Penghuni</a></li>
+          {
+            id ==='1' ? <li><a href="/admin/penghuni">Data Penghuni</a></li> : ''
+          }
           {
             id ? '' : <li><a href="#fasilitas">Fasilitas</a></li>
           }

@@ -36,7 +36,7 @@ function Navigate() {
                 <Route path="/admin/tambahinformasi" element={<Tambahinformasi />} />
                 <Route path="/admin/tambahpenghuni" element={<Tambahpenghuni />} />
                 <Route path="/admin/daftartagihan" element={<Tambahtagihan />} />
-                <Route path="/admin/konfirmasitagihanpenghuni" element={<Konfirmasitagihanpenghuni />} />
+                <Route path="/admin/konfirmasitagihanpenghuni/:id" element={<Konfirmasitagihanpenghuni />} />
                 <Route path="/admin/detailkonfirmasitagihanpengguna/:id" element={<Detailkonfirmasitagihanpenghuni />} />
 
                 <Route path="/daftartagihan" element={<TestTampilan1 />} />
