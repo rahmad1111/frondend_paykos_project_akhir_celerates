@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 function DetailKonfirmasiPembayaran() {
     const role = localStorage.getItem('roles')
     const idPenghuni = localStorage.getItem('userId');
-    const { id } = useParams();  // Mengambil ID dari URL
+    const { id } = useParams();
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
@@ -36,7 +36,6 @@ function DetailKonfirmasiPembayaran() {
                 bukti: imgBukti,
                 status:'Belum Bayar'
             }
-            // Mengirim id dari URL beserta data pembayaran yang baru
             dispatch(konfirmasiPembayaran(id, newBayar));
         };
 
