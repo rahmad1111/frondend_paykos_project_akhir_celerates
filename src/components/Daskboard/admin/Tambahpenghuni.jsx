@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addPenghuni } from "../../../store/actions/userdata.actions";
 import Swal from "sweetalert2";
@@ -9,16 +9,28 @@ function Tambahpenghuni() {
     const id = localStorage.getItem('userId');
 
     const [formData, setFormData] = useState({
-        harga_kamar: '',
+        harga_kamar: '500.000',
         nama: '',
         no_telepon: '',
         roles: 'penghuni',
         nomer_kamar: '',
-        periode_pembayaran: '',
+        periode_pembayaran: 'Bulanan',
         nomer_pengguna: '',
-        password: '',
+        password: '12345',
         id_pemilik: id,
     });
+
+    const generateNomorPengguna = () => {
+        const uniqueNumber = 'RKU' + Math.floor(Math.random() * 1000);
+        setFormData((prevData) => ({
+            ...prevData,
+            nomer_pengguna: uniqueNumber,
+        }));
+    };
+
+    useEffect(() => {
+        generateNomorPengguna();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -41,7 +53,7 @@ function Tambahpenghuni() {
             });
             return
         }
-        dispatch(addPenghuni(formData)); // Langsung kirim `formData`
+        dispatch(addPenghuni(formData));
 
         setFormData({
             harga_kamar: '',
@@ -54,7 +66,6 @@ function Tambahpenghuni() {
             password: '',
             id_pemilik: id,
         });
-        
     };
 
     if (loading) {
@@ -98,49 +109,19 @@ function Tambahpenghuni() {
                 </div>
                 <div className="form-group">
                     <label>Harga Kamar:</label>
-                    <select
-                        name="harga_kamar"
-                        value={formData.harga_kamar}
-                        onChange={handleChange}
-                        className="form-control small-option"
-                    >
-                        <option value="">Pilih Harga</option>
-                        <option value="Rp 350.000">Rp 350.000</option>
-                        <option value="Rp 400.000">Rp 400.000</option>
-                        <option value="Rp 600.000">Rp 600.000</option>
-                    </select>
+                    <span>{formData.harga_kamar}</span>
                 </div>
                 <div className="form-group">
                     <label>Periode Pembayaran:</label>
-                    <select
-                        name="periode_pembayaran"
-                        value={formData.periode_pembayaran}
-                        onChange={handleChange}
-                        className="form-control small-option"
-                    >
-                        <option value="">Pilih Periode</option>
-                        <option value="Bulan">Bulan</option>
-                        <option value="Setengah Bulan">Setengah Bulan</option>
-                        <option value="Tahunan">Tahunan</option>
-                    </select>
+                    <span>{formData.periode_pembayaran}</span>
                 </div>
                 <div className="form-group">
-                    <label>Nomer Pengguna (Harus Unik):</label>
-                    <input
-                        type="text"
-                        name="nomer_pengguna"
-                        value={formData.nomer_pengguna}
-                        onChange={handleChange}
-                    />
+                    <label>Nomer Pengguna:</label>
+                    <span>{formData.nomer_pengguna}</span>
                 </div>
                 <div className="form-group">
-                    <label>Password (Buat Password Awal):</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
+                    <label>Password:</label>
+                    <span>{formData.password}</span>
                 </div>
                 <button type="submit" className="submit-btn">Submit</button>
             </form>

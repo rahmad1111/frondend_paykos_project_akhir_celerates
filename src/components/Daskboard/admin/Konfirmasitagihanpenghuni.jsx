@@ -14,7 +14,7 @@ function Konfirmasitagihanpenghuni() {
     const matchedIds = penghuniId.filter((id) => pembayaranId.includes(id));
     const namaPenghuni = dataPengguna.filter((item) => matchedIds.includes(item.id));
     const id = localStorage.getItem('userId');
-    
+
     useEffect(() => {
         dispatch(getPembayaranPenggunaByID(id));
         dispatch(getUserData());
@@ -25,7 +25,9 @@ function Konfirmasitagihanpenghuni() {
             status: null,
         };
         dispatch(konfirmasiPembayaranDariPemilik(pembayaranId, updatedPembayaran));
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
     }
 
     const handleTerima = async (pembayaranId) => {
@@ -33,7 +35,9 @@ function Konfirmasitagihanpenghuni() {
             status: 'Lunas',
         };
         dispatch(konfirmasiPembayaranDariPemilik(pembayaranId, updatedPembayaran));
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
     }
 
     const showImage = (imageUrl) => {
@@ -54,30 +58,37 @@ function Konfirmasitagihanpenghuni() {
     }
 
     return (
-        <div style={{ minHeight:'75vh', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', justifyContent: 'start', marginBlock: '2rem', padding : '2rem' }}>
+        <div style={{ minHeight: '75vh', display: 'flex', flexDirection: 'column', gap: '1rem', alignItems: 'start', justifyContent: 'start', marginBlock: '2rem', padding: '2rem' }}>
             <h3>Konfirmasi Pembayaran</h3>
             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', justifyContent: 'center' }}>
-                {pembayaranconfir?.filter((p) => p.status === 'Belum Bayar').map((p) => {
-                    return (
-                        <div key={p.id}>
-                            <Card style={{ flexBasis: '300px', width: '100%', maxWidth: '360px', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <h3>Nama : {namaPenghuni.length > 0 ? namaPenghuni.find(item => item.id === p.id_penghuni)?.nama : 'Tidak ditemukan'}</h3>
-                                <div className="list-group-flush">
-                                    <button onClick={() => showImage(p.bukti)} style={{ padding: '10px', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', color: '#007bff' }}>
-                                        Lihat Bukti Pembayaran
-                                    </button>
-                                    <ListGroup.Item>Jumlah bayar : {namaPenghuni.length > 0 ? namaPenghuni.find(item => item.id === p.id_penghuni)?.harga_kamar : '-'}</ListGroup.Item>
-                                    <ListGroup.Item>Batas Bayar : {p.batas_waktu}</ListGroup.Item>
-                                    <ListGroup.Item>Status Bayar : {p.status}</ListGroup.Item>
+                {
+                    pembayaranconfir?.filter((p) => p.status === 'Belum Bayar' || p.status === 'Belum Kofirmasi').length > 0 ? (
+                        pembayaranconfir?.filter((p) => p.status === 'Belum Bayar' || p.status === 'Belum Kofirmasi').map((p) => {
+                            return (
+                                <div key={p.id}>
+                                    <Card style={{ flexBasis: '300px', width: '100%', maxWidth: '360px', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <h3>Nama : {namaPenghuni.length > 0 ? namaPenghuni.find(item => item.id === p.id_penghuni)?.nama : 'Tidak ditemukan'}</h3>
+                                        <div className="list-group-flush">
+                                            <button onClick={() => showImage(p.bukti)} style={{ padding: '10px', cursor: 'pointer', backgroundColor: 'transparent', border: 'none', color: '#007bff' }}>
+                                                Lihat Bukti Pembayaran
+                                            </button>
+                                            <ListGroup.Item>Jumlah bayar : {namaPenghuni.length > 0 ? namaPenghuni.find(item => item.id === p.id_penghuni)?.harga_kamar : '-'}</ListGroup.Item>
+                                            <ListGroup.Item>Batas Bayar : {p.batas_waktu}{p.id}</ListGroup.Item>
+                                            <ListGroup.Item>Status Bayar : {p.status}</ListGroup.Item>
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '1rem' }}>
+                                            <Button onClick={() => handleTolak(p.id)} variant="danger">Tolak</Button>
+                                            <Button onClick={() => handleTerima(p.id)} className="btn btn-success">Terima</Button>
+                                        </div>
+                                    </Card>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '1rem' }}>
-                                    <Button onClick={() => handleTolak(p.id)} variant="danger">Tolak</Button>
-                                    <Button onClick={() => handleTerima(p.id)} className="btn btn-success">Terima</Button>
-                                </div>
-                            </Card>
-                        </div>
-                    );
-                })}
+                            );
+                        })
+                    ) : (
+                        <p>Data kosong</p>
+                    )
+                }
+
             </div>
         </div>
     );

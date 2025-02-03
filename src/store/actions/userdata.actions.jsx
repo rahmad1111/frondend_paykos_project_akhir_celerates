@@ -392,14 +392,18 @@ export function konfirmasiPembayaran(id, data) {
         try {
             // const idUser = localStorage.getItem('userId')
             const token = localStorage.getItem('token');
-            const response = await fetch(`${baseUrl}pembayaran/${id}`, {
+            const response = await fetch(`${baseUrl}pembayaran/konfirmasi/${id}`, {
                 method: 'PUT',
+                mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(data),
             });
+            console.log("id: ", id)
+            console.log("data: ", data)
+            console.log("response: ", response)
             if(response.status === 500 || response.status > 500) {
                 window.alert('Data gagal dikirim')
             } else {
@@ -431,6 +435,7 @@ export function konfirmasiPembayaran(id, data) {
 export function konfirmasiPembayaranDariPemilik(id, data) {
     return async dispatch => {
         dispatch({ type: actionTypes.CONFIRMED_PAYMENT_REQUEST });
+        console.log('idnya', id)
         try {
             const token = localStorage.getItem('token');
             const response = await fetch(`${baseUrl}pembayaran/${id}`, {

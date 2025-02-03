@@ -8,10 +8,8 @@ function Tambahtagihan() {
     const dispatch = useDispatch();
     const { dataPengguna, loading, error } = useSelector((state) => state.datas);
     const [formData, setFormData] = useState({
-        id_penghuni: '',
         batas_waktu: '',
-        no_rekening: '',
-        status: '',
+        no_rekening: '68365738',
     });
 
     useEffect(() => {
@@ -28,25 +26,25 @@ function Tambahtagihan() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const dataTagihan = {
-            id_pemilik : 1,
-            id_penghuni: formData.id_penghuni,
-            batas_waktu: formData.batas_waktu,
-            no_rekening: formData.no_rekening,
-            status: 'Belum Bayar',
-        };
-        dispatch(addPembayaranAdmin(dataTagihan)); // Langsung kirim `formData`
+
+        // Iterasi melalui semua penghuni
+        dataPengguna.forEach(penghuni => {
+            const dataTagihan = {
+                id_pemilik: 1, // Misalnya, id pemilik selalu 1
+                id_penghuni: penghuni.id,
+                batas_waktu: formData.batas_waktu,
+                no_rekening: formData.no_rekening,
+                status: 'Belum Bayar',
+            };
+            dispatch(addPembayaranAdmin(dataTagihan)); // Kirim data tagihan untuk setiap penghuni
+        });
+
         setFormData({
-            id_penghuni: '',
             batas_waktu: '',
             no_rekening: '',
-            status: '',
         });
-        // window.location.replace('/daskboard/penghuni');
-        if (formData.id_penghuni || formData.batas_waktu || formData.no_rekening) {
-            alertify.success('Data telah disimpan!');
-            return;
-        }
+
+        alertify.success('Tagihan berhasil dikirim ke semua penghuni!');
     };
 
     if (loading) {
@@ -62,22 +60,6 @@ function Tambahtagihan() {
             <form className="user-form" onSubmit={handleSubmit}>
                 <h2>Tambah Tagihan</h2>
                 <div className="form-group">
-                    <label>ID Pengguna:</label>
-                    <select
-                        name="id_penghuni"
-                        value={formData.id_penghuni}
-                        onChange={handleChange}
-                        className="form-control small-option"
-                    >
-                        <option value="">Pilih Penguna</option>
-                        {dataPengguna.map((pengguna) => (
-                            <option key={pengguna.id} value={pengguna.id}>
-                                {pengguna.nama}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="form-group">
                     <label>Batas Waktu:</label>
                     <select
                         name="batas_waktu"
@@ -91,21 +73,7 @@ function Tambahtagihan() {
                         <option value="10 hari">10 hari</option>
                     </select>
                 </div>
-                <div className="form-group">
-                    <label>No Rekening:</label>
-                    <select
-                        name="no_rekening"
-                        value={formData.no_rekening}
-                        onChange={handleChange}
-                        className="form-control small-option"
-                    >
-                        <option value="">Pilih Rekening</option>
-                        <option value="68365738">68365738</option>
-                        <option value="87738399">87738399</option>
-                        <option value="76878790">76878790</option>
-                    </select>
-                </div>
-                <button type="submit" className="submit-btn">Submit</button>
+                <button type="submit" className="submit-btn">Kirim Tagihan ke Semua Penghuni</button>
             </form>
         </div>
     );

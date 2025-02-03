@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Layouts from "../pages/Layouts";
-import LandingPage from "../pages/Landing/LandingPage";
+// import LandingPage from "../pages/Landing/LandingPage";
 import Login from "../pages/Auth/Login";
 import Daskboard from "../pages/Home/Daskboard";
 
@@ -23,7 +23,7 @@ function Navigate() {
     return (
         <Routes>
             <Route path="/" element={<Layouts />}>
-                <Route index element={<LandingPage />} />
+                <Route index element={<Login />} />
                 <Route path="login" element={<Login />} />
                 <Route path="/daskboard" element={<Daskboard />} />
                 <Route path="/admin" element={<Daskboard />} />

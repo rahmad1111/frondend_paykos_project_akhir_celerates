@@ -1,28 +1,29 @@
 import { getComplain, deleteComplain } from "../../../store/actions/userdata.actions";
-import { useEffect, useState } from "react";
+import { useEffect, /* useState */ } from "react";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+// import Modal from "react-bootstrap/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import Swal from "sweetalert2";
+import { format } from 'date-fns';
 
 function TampilandepanAdmin() {
     const dispatch = useDispatch();
     const { keluhan, loading, error } = useSelector((state) => state.datas);
-    const [selectedKeluhan, setSelectedKeluhan] = useState(null);
-    const [show, setShow] = useState(false);
+    // const [selectedKeluhan, setSelectedKeluhan] = useState(null);
+    // const [show, setShow] = useState(false);
     
-    const handleShow = (keluhan) => {
-        setSelectedKeluhan(keluhan);
-        setShow(true);
-    };
+    // const handleShow = (keluhan) => {
+    //     setSelectedKeluhan(keluhan);
+    //     setShow(true);
+    // };
 
-    const handleClose = () => {
-        setShow(false);
-        setSelectedKeluhan(null);
-    };
+    // const handleClose = () => {
+    //     setShow(false);
+    //     setSelectedKeluhan(null);
+    // };
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -84,13 +85,13 @@ function TampilandepanAdmin() {
                     .reverse()
                     .map((keluhan) => (
                         <div style={{ maxWidth: '250px', width: '100%', flexBasis: '250px' }} key={keluhan.id}>
-                            <Card style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Card style={{ display: 'flex', height: 'auto' }}>
                                 <Card.Body>
                                     <Card.Title>{keluhan.judul_keluhan}</Card.Title>
                                     <Card.Text>{keluhan.isi_keluhan}</Card.Text>
                                 </Card.Body>
                                 <div style={{ width: '100%' }}>
-                                    <ListGroup.Item>{keluhan.createdAt}</ListGroup.Item>
+                                    <ListGroup.Item>{format(new Date(keluhan.createdAt), 'dd MM yyyy')}</ListGroup.Item>
                                     <Button 
                                         style={{ width: '100%' }} 
                                         variant="danger" 

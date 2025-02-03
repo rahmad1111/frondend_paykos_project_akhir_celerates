@@ -14,7 +14,6 @@ function Navbar() {
       <div style={{ display: 'flex', flex: '1', justifyContent: 'start' }}>
         <ul>
           <li><SideBar /></li>
-          <li><a href="/">Home</a></li>
           {!token ? ( ''
           ) : (
             <li><a href="/daskboard">Dashboard</a></li>

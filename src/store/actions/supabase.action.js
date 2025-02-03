@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { createClient } from '@supabase/supabase-js';
 const supaUrl = process.env.REACT_APP_SUPABASE_URL;
-const supaBkt = process.env.REACT_APP_SUPABASE_BUCKET;
-const supaKey =process.env.REACT_APP_SUPABASE_KEY;
+const supaBkt = "https://aeqnhroifvvumkducbhj.supabase.co/storage/v1/object/public/bukti_pembayaran/";
+const supaKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFlcW5ocm9pZnZ2dW1rZHVjYmhqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMyNDI3OTYsImV4cCI6MjA0ODgxODc5Nn0.7X-MFP-HXGZn_WJCKrbhBRUnkHH0LfM17IUHKq2G-8w";
 const supabase = createClient(supaUrl, supaKey, supaBkt);
 export default supabase;
 

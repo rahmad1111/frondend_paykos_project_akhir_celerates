@@ -30,26 +30,32 @@ function KonfimasiPembayaran() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
                 <h3>Bayar Tagihan</h3>
                 <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', padding: '2rem', gap: '1rem', alignItems: 'center' }}>
-                {pembayaran.filter(p => p.status === null || p.status === "").slice().reverse().map((p) => {
-    return (
-        <div key={p.id}>
-            <Card style={{ width: 'auto' }} >
-                <Card.Body>
-                    <Card.Title>Tagihan : {dataPengguna.nama}</Card.Title>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroup.Item>Jumlah tagihan : {dataPengguna.harga_kamar}</ListGroup.Item>
-                    <ListGroup.Item>Batas tagihan : {p.batas_waktu}</ListGroup.Item>
-                    <ListGroup.Item>Status tagihan : {p.status}</ListGroup.Item>
-                </ListGroup>
-                <Link to={`/detailkonfirmasitagihan/${p.id}`}>
-                    <Button variant="primary">Bayar Tagihan</Button>
-                </Link>
-            </Card>
-            <br />
-        </div>
-    );
-})}
+                    {
+                        pembayaran.filter(p => p.status === null || p.status === "Belum Bayar").length > 0 ? (
+                            pembayaran.filter(p => p.status === null || p.status === "Belum Bayar").slice().reverse().map((p) => {
+                                return (
+                                    <div key={p.id}>
+                                        <Card style={{ width: 'auto' }} >
+                                            <Card.Body>
+                                                <Card.Title>Tagihan : {dataPengguna.nama}</Card.Title>
+                                            </Card.Body>
+                                            <ListGroup className="list-group-flush">
+                                                <ListGroup.Item>Jumlah tagihan : {dataPengguna.harga_kamar}</ListGroup.Item>
+                                                <ListGroup.Item>Batas tagihan : {p.batas_waktu}</ListGroup.Item>
+                                                <ListGroup.Item>Status tagihan : {p.status}</ListGroup.Item>
+                                            </ListGroup>
+                                            <Link to={`/detailkonfirmasitagihan/${p.id}`}>
+                                                <Button variant="primary">Bayar Tagihan</Button>
+                                            </Link>
+                                        </Card>
+                                        <br />
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p>Tidak Ada Tagihan</p>
+                        )
+                    }
 
 
                 </div>

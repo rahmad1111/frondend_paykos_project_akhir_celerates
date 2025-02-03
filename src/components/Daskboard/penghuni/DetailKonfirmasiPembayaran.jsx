@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 
 function DetailKonfirmasiPembayaran() {
     const role = localStorage.getItem('roles')
-    const idPenghuni = localStorage.getItem('userId');
     const { id } = useParams();
     const dispatch = useDispatch();
 
@@ -29,13 +28,12 @@ function DetailKonfirmasiPembayaran() {
 
             let imgBukti = null;
             imgBukti = await imgSupabase(fileImg, file);
+            console.log("gambar: ",imgBukti)
             const newBayar = {
-                id_pemilik: 1,
-                id_penghuni: idPenghuni,
                 jenis_pembayaran: formData.jenis_pembayaran,
                 bukti: imgBukti,
-                status:'Belum Bayar'
             }
+            console.log("data masuk: ", newBayar)
             dispatch(konfirmasiPembayaran(id, newBayar));
         };
 
