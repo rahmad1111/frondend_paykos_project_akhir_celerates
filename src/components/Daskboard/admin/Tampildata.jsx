@@ -12,7 +12,7 @@ function Tampildata() {
   const { dataPengguna, loading, error } = useSelector((state) => state.datas);
   // const [show, setShow] = useState(false);
 
-  const [selectedPenghuni, setSelectedPenghuni] = useState(null);
+  const [/* selectedPenghuni */, setSelectedPenghuni] = useState(null);
   // const handleClose = () => setShow(false);
   // const handleShow = (dataPengguna) => {
   //   setSelectedPenghuni(dataPengguna);

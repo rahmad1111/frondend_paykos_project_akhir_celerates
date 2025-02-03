@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { addKeluhan } from "../../../store/actions/userdata.actions";
+import alertify from 'alertifyjs';
 
 function TambahKeluhan() {
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.datas);
 
     const [formData, setFormData] = useState({
-        judul_keluhan: '',
+        judul_keluhan: 'NULL',
         isi_keluhan: '',
     });
 
@@ -26,6 +27,7 @@ function TambahKeluhan() {
             judul_keluhan: '',
             isi_keluhan: '',
         });
+        alertify.success('Keluhan berhasil dikirim');
     };
 
     if (loading) {
@@ -40,15 +42,6 @@ function TambahKeluhan() {
         <div className="form-container">
             <form className="user-form" onSubmit={handleSubmit}>
                 <h2>Tambah Keluhan</h2>
-                <div className="form-group">
-                    <label>Judul:</label>
-                    <input
-                        type="text"
-                        name="judul_keluhan"
-                        value={formData.judul_keluhan}
-                        onChange={handleChange}
-                    />
-                </div>
                 <div className="form-group">
                     <label>Keluhan:</label>
                     <input
