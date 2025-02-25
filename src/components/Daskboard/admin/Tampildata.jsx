@@ -69,7 +69,16 @@ function Tampildata() {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: "100vh"
+      }}>
+        <div className='loader'></div>
+      </div>
+    )
   }
 
   if (error) {

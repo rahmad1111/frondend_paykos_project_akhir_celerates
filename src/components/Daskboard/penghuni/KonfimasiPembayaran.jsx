@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { geteditUserData, getPembayaranByid } from '../../../store/actions/userdata.actions';
+import { format } from 'date-fns';
+
 
 function KonfimasiPembayaran() {
     const dispatch = useDispatch();
@@ -18,7 +20,16 @@ function KonfimasiPembayaran() {
     }, [dispatch, id]);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return (
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: "100vh"
+            }}>
+                <div className='loader'></div>
+            </div>
+        )
     }
 
     if (error) {
@@ -41,7 +52,7 @@ function KonfimasiPembayaran() {
                                             </Card.Body>
                                             <ListGroup className="list-group-flush">
                                                 <ListGroup.Item>Jumlah tagihan : {dataPengguna.harga_kamar}</ListGroup.Item>
-                                                <ListGroup.Item>Batas tagihan : {p.batas_waktu}</ListGroup.Item>
+                                                <ListGroup.Item>Batas tagihan : {format(new Date(p.batas_waktu), 'dd MMMM yyyy')}</ListGroup.Item>
                                                 <ListGroup.Item>Status tagihan : {p.status}</ListGroup.Item>
                                             </ListGroup>
                                             <Link to={`/detailkonfirmasitagihan/${p.id}`}>

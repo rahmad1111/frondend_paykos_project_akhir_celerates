@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { getInformasi } from "../../../store/actions/userdata.actions";
+import { format } from 'date-fns';
 
 function Tampilanawalpenghuni() {
     const dispatch = useDispatch();
@@ -28,12 +29,12 @@ function Tampilanawalpenghuni() {
                 .map((informasi) => (
                     <div key={informasi.id}>
                         <div className="card-dashboard">
+                            <ListGroup className="list-group-flush">
+                                <ListGroup.Item>{format(new Date(informasi.createdAt), 'dd MMMM yyyy')}</ListGroup.Item>
+                            </ListGroup>
                             <Card.Body>
                                 <Card.Text>{informasi.informasi}</Card.Text>
                             </Card.Body>
-                            <ListGroup className="list-group-flush">
-                                <ListGroup.Item>{informasi.createdAt}</ListGroup.Item>
-                            </ListGroup>
                         </div>
                         <br />
                     </div>

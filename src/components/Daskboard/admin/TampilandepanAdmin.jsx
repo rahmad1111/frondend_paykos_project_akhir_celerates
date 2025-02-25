@@ -14,7 +14,7 @@ function TampilandepanAdmin() {
     const { keluhan, loading, error } = useSelector((state) => state.datas);
     // const [selectedKeluhan, setSelectedKeluhan] = useState(null);
     // const [show, setShow] = useState(false);
-    
+
     // const handleShow = (keluhan) => {
     //     setSelectedKeluhan(keluhan);
     //     setShow(true);
@@ -68,33 +68,32 @@ function TampilandepanAdmin() {
         <div>
             <div style={{ display: 'flex', flexDirection: 'row', gap: '1rem', marginBlock: '1rem' }}>
                 <Link to={"/admin/tambahpenghuni"}>
-                    <Button variant="secondary" size="lg">
+                    <Button variant="secondary" size="sm">
                         Tambah Penghuni
                     </Button>
                 </Link>
                 <Link to={"/admin/daftartagihan"}>
-                    <Button variant="success" size="lg">
+                    <Button variant="info" size="sm">
                         Tambah Tagihan
                     </Button>
                 </Link>
             </div>
-            <h5 style={{ marginBlock: '1rem' }}>Keluhan Kos</h5>
+            <h5 style={{ marginBlock: '1rem', fontSize: '20px', paddingTop: '10px' }}>Keluhan Kos</h5>
             <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center' }}>
                 {keluhan
                     .slice()
                     .reverse()
                     .map((keluhan) => (
                         <div style={{ maxWidth: '250px', width: '100%', flexBasis: '250px' }} key={keluhan.id}>
-                            <Card style={{ display: 'flex', height: 'auto' }}>
+                            <Card style={{ display: 'flex', height: 'auto'}}>
+                                <ListGroup.Item>{format(new Date(keluhan.createdAt), 'dd MMMM yyyy')}</ListGroup.Item>
                                 <Card.Body>
-                                    <Card.Title>{keluhan.judul_keluhan}</Card.Title>
                                     <Card.Text>{keluhan.isi_keluhan}</Card.Text>
                                 </Card.Body>
                                 <div style={{ width: '100%' }}>
-                                    <ListGroup.Item>{format(new Date(keluhan.createdAt), 'dd MM yyyy')}</ListGroup.Item>
-                                    <Button 
-                                        style={{ width: '100%' }} 
-                                        variant="danger" 
+                                    <Button
+                                        style={{ width: '100%' }}
+                                        variant="danger"
                                         onClick={() => handleDelete(keluhan.id)}
                                     >
                                         Hapus

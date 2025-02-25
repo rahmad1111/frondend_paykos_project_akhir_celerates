@@ -74,7 +74,6 @@ li a:hover {
     gap: 1rem;
     width: 100%;
     max-width: 1200px;
-    min-height: 50vh;
     padding: 1rem;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -195,14 +194,14 @@ li a:hover {
 }
 
 /* Dropdown menu yang tersembunyi di awal */
-.dropdown-menu {
+.dropdown-menu-local {
     visibility: hidden;
     opacity: 0;
     flex-direction: column;
     list-style: none;
     position: absolute;
     top: 4.5rem;
-    left: -2rem;
+    left: -3rem;
     background-color: #3e3e3e;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -214,13 +213,13 @@ li a:hover {
         visibility 0.3s;
 }
 
-.dropdown-menu.open {
+.dropdown-menu-local.open {
     visibility: visible;
     opacity: 1;
     transform: translateX(0%);
 }
 
-.dropdown-menu a {
+.dropdown-menu-local a {
     display: flex;
     align-items: center;
     flex: 1;
@@ -232,12 +231,43 @@ li a:hover {
     color: white;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu-local a:hover {
     background-color: #3e3e3e;
 }
 
 
 /* end content */
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    position: relative;
+    animation: rotate 1s linear infinite
+  }
+  .loader::before , .loader::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0px;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+    animation: prixClipFix 2s linear infinite ;
+  }
+  .loader::after{
+    transform: rotate3d(90, 90, 0, 180deg );
+    border-color: #FF3D00;
+  }
+
+  @keyframes rotate {
+    0%   {transform: rotate(0deg)}
+    100%   {transform: rotate(360deg)}
+  }
+
+  @keyframes prixClipFix {
+      0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+      50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+      75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+  }
 
 
 /* scroll custom scrollbar */

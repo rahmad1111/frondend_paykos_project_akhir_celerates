@@ -29,7 +29,7 @@ function Login() {
               <div className="card-header">
                 <h2>Welcome Back</h2>
                 <p>Login to continue</p>
-                {loginState.loading && <p>Loading...</p>}
+                {/* {loginState.loading && <p>Loading...</p>} */}
                 {loginState.error && <p style={{ color: 'red' }}>{loginState.error}</p>}
               </div>
               <div className="card-body">
